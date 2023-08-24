@@ -1,0 +1,83 @@
+import org.gradle.api.internal.artifacts.ivyservice.resolveengine.artifact.ResolvableArtifact
+
+import java.nio.file.Files
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    //  https://developer.android.com/kotlin/parcelize?hl=zh-cn
+    id 'kotlin-parcelize'
+}
+
+android {
+    namespace 'com.qianyue.wanandroidmvi'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.qianyue.wanandroidmvi"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // 加入retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // 持久化cookie
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    // adapter支持
+    implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.1"
+
+    // 下拉刷新上拉加载
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.6'
+    implementation  'io.github.scwang90:refresh-header-classics:2.0.6'
+
+    // banner
+    implementation 'com.github.zhpanvip:bannerviewpager:3.5.1'
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:4.16.0"
+
+    // 腾讯webview
+    implementation 'com.tencent.tbs:tbssdk:44286'
+
+    // 吐司框架：https://github.com/getActivity/Toaster
+    implementation 'com.github.getActivity:Toaster:12.3'
+}
