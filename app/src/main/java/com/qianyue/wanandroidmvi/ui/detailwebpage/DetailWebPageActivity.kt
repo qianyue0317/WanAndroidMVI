@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.databinding.ActivityDetailWebPageBinding
 import com.qianyue.wanandroidmvi.viewmodel.DetailWebPageViewModel
+import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebViewClient
 
 /**
@@ -41,6 +42,7 @@ class DetailWebPageActivity : BaseActivity<DetailWebPageViewModel>() {
         }
 
         binding.webView.webViewClient = object : WebViewClient() {}
+        binding.webView.webChromeClient = WebChromeClient()
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.loadUrl(url)
     }
