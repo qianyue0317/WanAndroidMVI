@@ -1,13 +1,16 @@
 package com.qianyue.wanandroidmvi
 
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.databinding.ActivityMainBinding
 import com.qianyue.wanandroidmvi.ui.home.HomeFragment
@@ -15,6 +18,8 @@ import com.qianyue.wanandroidmvi.ui.mine.MineFragment
 import com.qianyue.wanandroidmvi.ui.plaza.PlazaFragment
 import com.qianyue.wanandroidmvi.ui.projectlist.ProjectFragment
 import com.qianyue.wanandroidmvi.viewmodel.MainViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @author QianYue
@@ -28,6 +33,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     private val _fragTags = arrayOf("home_frag", "project_frag", "plaza_frag", "mine_frag")
 
+    private var _quit = false
+
     override fun lazyVM(): Lazy<MainViewModel> =
         lazy { ViewModelProvider(this)[MainViewModel::class.java] }
 
@@ -39,15 +46,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_project,
-                R.id.navigation_plaza,
-                R.id.navigation_mine
-            )
-        )
         navView.setOnItemSelectedListener {
+            supportActionBar?.title = it.title
             val transaction = supportFragmentManager.beginTransaction()
             _cacheFrag?.apply { transaction.hide(this) }
             when (it.itemId) {
@@ -100,5 +100,18 @@ class MainActivity : BaseActivity<MainViewModel>() {
         }
 
         navView.selectedItemId = R.id.navigation_home
+
+        onBackPressedDispatcher.addCallback {
+            vm.viewModelScope.launch {
+                if (_quit) {
+                    finish()
+                    return@launch
+                }
+                _quit = true
+                Toaster.showShort("再按一次退出应用")
+                delay(1000)
+                _quit = false
+            }
+        }
     }
 }
