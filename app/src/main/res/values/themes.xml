@@ -22,4 +22,13 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
     </style>
+    
+    <declare-styleable name="RoundedCornerLayout">
+        <!--   采用outline方案实现圆角     -->
+        <attr name="roundOutLineRadius" format="dimension" />
+
+        <!--    采用clip canvas方式实现，目前没有必要实现    -->
+        <attr name="roundClipRadius" format="dimension" />
+        <attr name="roundClipColor" format="color" />
+    </declare-styleable>
 </resources>

@@ -6,10 +6,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.databinding.ActivityMainBinding
