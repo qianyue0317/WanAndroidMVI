@@ -76,4 +76,13 @@ interface ApiService {
      */
     @GET("project/list/{pageIndex}/json")
     suspend fun getProjectList(@Path("pageIndex")pageIndex: Int, @Query("cid") cid: Int): AppResponse<AppListData<ProjectItem>>
+
+    /**
+     * 获取广场页面文章列表数据
+     */
+    @GET("user_article/list/{pageIndex}/json")
+    suspend fun getPlazaArticleList(
+        @Path("pageIndex") pageIndex: Int,
+        @Query("page_size") pageSize: Int? = null
+    ): AppResponse<AppListData<ArticleItem>>
 }

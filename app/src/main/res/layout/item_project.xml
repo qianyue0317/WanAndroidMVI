@@ -16,6 +16,7 @@
         <ImageView
             android:id="@+id/iv_project_cover"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,22 @@
             android:layout_height="0dp"
             tools:ignore="ContentDescription" />
 
+        <TextView
+            android:id="@+id/tv_project_title"
+            style="@style/WanArticleTitle"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/content_middle_margin"
+            android:layout_marginEnd="@dimen/content_middle_margin"
+            app:layout_constraintTop_toBottomOf="@+id/iv_project_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
+            android:layout_marginTop="@dimen/content_middle_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

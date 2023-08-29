@@ -8,6 +8,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.qianyue.wanandroidmvi.databinding.ItemProjectBinding
 import com.qianyue.wanandroidmvi.model.bean.ProjectItem
 import com.qianyue.wanandroidmvi.utils.WanImageLoader
+import com.qianyue.wanandroidmvi.widgets.dp2px
+import com.qianyue.wanandroidmvi.widgets.roundOutLine
+import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
 
 /**
  * @author QianYue
@@ -21,6 +24,7 @@ class ProjectAdapter : BaseQuickAdapter<ProjectItem, ProjectAdapter.ViewHolder>(
         holder.cacheItem = item
         holder.cacheIndex = position
 
+        holder.binding.tvProjectTitle.text = item?.title
         holder.binding.apply {
             WanImageLoader.loadImage(root.context, item?.envelopePic, ivProjectCover)
         }
@@ -34,7 +38,8 @@ class ProjectAdapter : BaseQuickAdapter<ProjectItem, ProjectAdapter.ViewHolder>(
     ): ViewHolder {
         val binding = ItemProjectBinding.inflate(LayoutInflater.from(context), parent, false)
         val viewHolder = ViewHolder(binding)
-        binding.root.setOnClickListener {
+        binding.ivProjectCover.roundOutLine(8f.dp2px())
+        binding.root.setSafeClickListener {
             onItemClick?.invoke(viewHolder.cacheIndex, viewHolder.cacheItem!!)
         }
         return viewHolder

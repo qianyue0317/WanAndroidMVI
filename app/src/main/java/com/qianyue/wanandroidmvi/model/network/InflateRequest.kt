@@ -5,15 +5,12 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
 import com.qianyue.wanandroidmvi.WanApplication
-import com.qianyue.wanandroidmvi.constant.LOG
 import com.qianyue.wanandroidmvi.utils.WanLog
 import okhttp3.Cache
-import okhttp3.Cookie
 import okhttp3.CookieJar
-import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -38,6 +35,7 @@ private fun initClient(): OkHttpClient = OkHttpClient.Builder()
     .connectTimeout(ApiService.CONNECT_TIMEOUT, TimeUnit.SECONDS)
     .readTimeout(ApiService.READ_TIMEOUT, TimeUnit.SECONDS)
     .writeTimeout(ApiService.WRITE_TIMEOUT, TimeUnit.SECONDS)
+    .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
     .addInterceptor(logInterceptor)
     .build()
 
@@ -51,7 +49,6 @@ val logInterceptor : Interceptor by lazy {
         val request = chain.request()
         WanLog.d(msg = request.url().toString())
         val response = chain.proceed(request)
-//        WanLog.d(msg = response.body()?.string())
         response
     }
 }

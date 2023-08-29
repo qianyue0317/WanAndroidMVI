@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjq.toast.Toaster
@@ -13,13 +12,12 @@ import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentHomeBinding
 import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
+import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.uiintent.HomeUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.HomeUiState
 import com.qianyue.wanandroidmvi.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
-import kotlinx.coroutines.flow.collectIndexed
-import kotlinx.coroutines.launch
 
 /**
  * 首页fragment
@@ -85,7 +83,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 binding.refreshLayout.finishRefresh()
             }
             is HomeUiState.LoadMoreState -> {
-                _articleAdapter.addAll(state.articleList ?: emptyList())
+                _articleAdapter.safeAddAll(state.articleList)
                 binding.refreshLayout.finishLoadMore()
             }
             is HomeUiState.LoadBanner -> {

@@ -12,6 +12,8 @@ import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentProjectListBinding
 import com.qianyue.wanandroidmvi.ext.dp2px
+import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
+import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.uiintent.ProjectUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.ProjectUiState
 import com.qianyue.wanandroidmvi.viewmodel.ProjectViewModel
@@ -32,7 +34,7 @@ class ProjectListFragment(var cid: Int) : BaseFragment<ProjectViewModel>() {
 
     private var _adapter: ProjectAdapter? = null
 
-    private val adapter get() = _adapter!!
+    private val adapter: ProjectAdapter get() = _adapter!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,6 +81,9 @@ class ProjectListFragment(var cid: Int) : BaseFragment<ProjectViewModel>() {
             })
             _adapter = ProjectAdapter()
             adapter = this@ProjectListFragment.adapter
+            _adapter?.onItemClick = { _, value ->
+                DetailWebPageActivity.startActivity(this.context, value.link)
+            }
         }
     }
 
@@ -103,7 +108,7 @@ class ProjectListFragment(var cid: Int) : BaseFragment<ProjectViewModel>() {
                 binding.projectRefreshLayout.finishRefresh()
             }
             is ProjectUiState.OnProjectListLoadMore -> {
-                adapter.addAll(state.projectList ?: return)
+                adapter.safeAddAll(state.projectList)
                 binding.projectRefreshLayout.finishLoadMore()
             }
         }

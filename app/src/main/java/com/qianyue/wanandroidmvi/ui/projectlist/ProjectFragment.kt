@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayout
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentProjectBinding
 import com.qianyue.wanandroidmvi.ui.uiintent.ProjectUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.ProjectUiState
+import com.qianyue.wanandroidmvi.utils.WanLog
 import com.qianyue.wanandroidmvi.viewmodel.ProjectViewModel
 
 /**
@@ -49,7 +48,7 @@ class ProjectFragment : BaseFragment<ProjectViewModel>() {
             }
 
             is ProjectUiState.OnCategoriesLoad -> {
-
+                WanLog.d(msg = "state: $state")
                 state.categories?.also {
                     val fragmentAdapter = object :FragmentStatePagerAdapter(this@ProjectFragment.childFragmentManager) {
                         override fun getCount() = it.size
