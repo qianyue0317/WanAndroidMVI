@@ -11,7 +11,7 @@ import com.qianyue.wanandroidmvi.ui.uistate.MineUiState
 class MineViewModel: BaseViewModel<MineUiIntent, MineUiState>() {
     override fun initState(): MineUiState = MineUiState()
 
-    override fun processIntent(uiIntent: MineUiIntent) {
+    override suspend fun processIntent(uiIntent: MineUiIntent) {
 
     }
 }

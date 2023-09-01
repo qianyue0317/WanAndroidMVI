@@ -100,7 +100,7 @@ class ProjectListFragment(var cid: Int) : BaseFragment<ProjectViewModel>() {
 
     override fun lazyVM(): Lazy<ProjectViewModel> = viewModels()
 
-    override fun handleState(state: IUiState) {
+    override suspend fun handleState(state: IUiState) {
         when (state) {
             is ProjectUiState.InitState -> vm.sendUiIntent(ProjectUiIntent.RefreshProjectList(cid))
             is ProjectUiState.OnProjectListRefresh -> {

@@ -19,11 +19,10 @@ abstract class BaseFragment<VM : BaseViewModel<*, *>> : Fragment() {
 
     abstract fun lazyVM(): Lazy<VM>
 
-    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 vm.uiStateFlow.collectIndexed { _, state ->
                     handleState(state)
                 }
@@ -32,6 +31,6 @@ abstract class BaseFragment<VM : BaseViewModel<*, *>> : Fragment() {
         }
     }
 
-    abstract fun handleState(state: IUiState)
+    abstract suspend fun handleState(state: IUiState)
 
 }

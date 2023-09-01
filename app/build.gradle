@@ -83,4 +83,7 @@ dependencies {
 
     // 吐司框架：https://github.com/getActivity/Toaster
     implementation 'com.github.getActivity:Toaster:12.3'
+
+    // mmkv
+    implementation 'com.tencent:mmkv:1.3.1'
 }

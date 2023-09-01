@@ -11,7 +11,7 @@ import com.qianyue.wanandroidmvi.ui.uistate.MainUiState
 class MainViewModel: BaseViewModel<MainUiIntent, MainUiState>() {
 
 
-    override fun processIntent(uiIntent: MainUiIntent) {
+    override suspend fun processIntent(uiIntent: MainUiIntent) {
     }
 
     override fun initState() = MainUiState()

@@ -2,12 +2,13 @@ package com.qianyue.wanandroidmvi
 
 import android.os.Bundle
 import androidx.activity.addCallback
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
+import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivityMainBinding
 import com.qianyue.wanandroidmvi.ui.home.HomeFragment
 import com.qianyue.wanandroidmvi.ui.mine.MineFragment
@@ -31,8 +32,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     private var _quit = false
 
-    override fun lazyVM(): Lazy<MainViewModel> =
-        lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    override fun lazyVM(): Lazy<MainViewModel> = viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,5 +109,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 _quit = false
             }
         }
+    }
+
+    override suspend fun handleState(state: IUiState) {
     }
 }

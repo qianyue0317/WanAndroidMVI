@@ -11,25 +11,21 @@ import kotlinx.coroutines.launch
  * 广场ViewModel
  */
 class PlazaViewModel : BaseViewModel<PlazaUiIntent, PlazaUiState>() {
-    private var _currentIndex = 1
+    private var _currentIndex = 0
     override fun initState(): PlazaUiState = PlazaUiState.InitState()
 
-    override fun processIntent(uiIntent: PlazaUiIntent) {
-        viewModelScope.launch {
-            when (uiIntent) {
-                is PlazaUiIntent.RefreshIntent -> {
-                    _currentIndex = 1
-                    val response = request { API_SERVICE.getPlazaArticleList(_currentIndex) }
-                    response.takeIf { it.isSuccessful() }
-                        ?.let { sendUiState { PlazaUiState.OnRefreshState(it.data?.datas) } }
-                }
+    override suspend fun processIntent(uiIntent: PlazaUiIntent) {
+        when (uiIntent) {
+            is PlazaUiIntent.RefreshIntent -> {
+                _currentIndex = 0
+                val response = request { API_SERVICE.getPlazaArticleList(_currentIndex) }
+                response.let { sendUiState { PlazaUiState.OnRefreshState(it.data?.datas) } }
+            }
 
-                is PlazaUiIntent.LoadMoreIntent -> {
-                    _currentIndex++
-                    val response = request { API_SERVICE.getPlazaArticleList(_currentIndex) }
-                    response.takeIf { it.isSuccessful() }
-                        ?.let { sendUiState { PlazaUiState.OnLoadMoreState(it.data?.datas) } }
-                }
+            is PlazaUiIntent.LoadMoreIntent -> {
+                _currentIndex++
+                val response = request { API_SERVICE.getPlazaArticleList(_currentIndex) }
+                response.let { sendUiState { PlazaUiState.OnLoadMoreState(it.data?.datas) } }
             }
         }
     }

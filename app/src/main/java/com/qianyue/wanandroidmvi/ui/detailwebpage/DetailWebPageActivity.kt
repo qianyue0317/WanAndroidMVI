@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.qianyue.wanandroidmvi.base.BaseActivity
+import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivityDetailWebPageBinding
 import com.qianyue.wanandroidmvi.viewmodel.DetailWebPageViewModel
 import com.tencent.smtt.sdk.WebChromeClient
@@ -27,9 +29,7 @@ class DetailWebPageActivity : BaseActivity<DetailWebPageViewModel>() {
         }
     }
 
-    override fun lazyVM(): Lazy<DetailWebPageViewModel> =
-        lazy { ViewModelProvider(this)[DetailWebPageViewModel::class.java] }
-
+    override fun lazyVM(): Lazy<DetailWebPageViewModel> = viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,5 +45,9 @@ class DetailWebPageActivity : BaseActivity<DetailWebPageViewModel>() {
         binding.webView.webChromeClient = WebChromeClient()
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.loadUrl(url)
+    }
+
+    override suspend fun handleState(state: IUiState) {
+
     }
 }

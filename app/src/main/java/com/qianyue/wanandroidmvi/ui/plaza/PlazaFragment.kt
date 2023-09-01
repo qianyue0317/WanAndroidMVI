@@ -45,6 +45,7 @@ class PlazaFragment : BaseFragment<PlazaViewModel>() {
 
         initRecyclerView()
 
+        binding.emptyLayout.showProgressBar()
         binding.refreshLayout.classicConfig(
             onRefresh = {
                 vm.sendUiIntent(PlazaUiIntent.RefreshIntent())
@@ -70,12 +71,17 @@ class PlazaFragment : BaseFragment<PlazaViewModel>() {
     }
 
 
-    override fun handleState(state: IUiState) {
+    override suspend fun handleState(state: IUiState) {
         when (state) {
             is PlazaUiState.InitState -> {
                 vm.sendUiIntent(PlazaUiIntent.RefreshIntent())
             }
             is PlazaUiState.OnRefreshState -> {
+                if (state.list == null) {
+                    binding.emptyLayout.showRefresh("加载失败，点击重试") { vm.sendUiIntent(PlazaUiIntent.RefreshIntent()) }
+                    return
+                }
+                binding.emptyLayout.showContent()
                 adapter.submitList(state.list)
                 binding.refreshLayout.finishRefresh()
             }

@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentProjectBinding
 import com.qianyue.wanandroidmvi.ui.uiintent.ProjectUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.ProjectUiState
-import com.qianyue.wanandroidmvi.utils.WanLog
 import com.qianyue.wanandroidmvi.viewmodel.ProjectViewModel
 
 /**
@@ -26,8 +25,7 @@ class ProjectFragment : BaseFragment<ProjectViewModel>() {
 
     private val binding get() = _binding!!
 
-    override fun lazyVM(): Lazy<ProjectViewModel> =
-        lazy { ViewModelProvider(this)[ProjectViewModel::class.java] }
+    override fun lazyVM(): Lazy<ProjectViewModel> = viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,18 +35,17 @@ class ProjectFragment : BaseFragment<ProjectViewModel>() {
 
         _binding = FragmentProjectBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        binding.emptyLayout.showProgressBar()
         return root
     }
 
-    override fun handleState(state: IUiState) {
+    override suspend fun handleState(state: IUiState) {
         when (state) {
             is ProjectUiState.InitState -> {
                 vm.sendUiIntent(ProjectUiIntent.GetProjectCategories)
             }
 
             is ProjectUiState.OnCategoriesLoad -> {
-                WanLog.d(msg = "state: $state")
                 state.categories?.also {
                     val fragmentAdapter = object :FragmentStatePagerAdapter(this@ProjectFragment.childFragmentManager) {
                         override fun getCount() = it.size
@@ -59,6 +56,11 @@ class ProjectFragment : BaseFragment<ProjectViewModel>() {
                     }
                     binding.viewPager.adapter = fragmentAdapter
                     binding.tabLayout.setupWithViewPager(binding.viewPager)
+                    binding.emptyLayout.showContent()
+                }?: run {
+                    binding.emptyLayout.showRefresh("加载失败，点击重试") {
+                        vm.sendUiIntent(ProjectUiIntent.GetProjectCategories)
+                    }
                 }
             }
         }

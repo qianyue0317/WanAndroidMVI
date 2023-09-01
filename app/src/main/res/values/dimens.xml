@@ -7,4 +7,8 @@
     <dimen name="content_middle_margin">8dp</dimen>
     <dimen name="content_large_margin">12dp</dimen>
     <dimen name="content_ll_margin">16dp</dimen>
+
+    <dimen name="layout_margin">16dp</dimen>
+
+    <dimen name="layout_corner_radius">6dp</dimen>
 </resources>

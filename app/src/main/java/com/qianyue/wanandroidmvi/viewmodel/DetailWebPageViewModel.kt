@@ -11,7 +11,7 @@ import com.qianyue.wanandroidmvi.ui.uistate.DetailWebPageState
 class DetailWebPageViewModel: BaseViewModel<DetailWebPageIntent, DetailWebPageState>() {
     override fun initState(): DetailWebPageState = DetailWebPageState()
 
-    override fun processIntent(uiIntent: DetailWebPageIntent) {
+    override suspend fun processIntent(uiIntent: DetailWebPageIntent) {
 
     }
 }

@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.idea/.gitignore
+/.idea/vcs.xml
+/.idea/gradle.xml
+/.idea/kotlinc.xml
+/.idea/misc.xml
+/.idea/compiler.xml
+/.idea/aws.xml
+/.idea/WORKSP~2.XML
+/app/src/main/java/com/qianyue/wanandroidmvi/TestAttri.kt

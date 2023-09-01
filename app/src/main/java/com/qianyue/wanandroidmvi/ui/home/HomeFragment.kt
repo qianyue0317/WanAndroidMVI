@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,8 +39,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private lateinit var _headAdapter: HeadAdapter
 
 
-    override fun lazyVM(): Lazy<HomeViewModel> =
-        lazy { ViewModelProvider(this)[HomeViewModel::class.java] }
+    override fun lazyVM(): Lazy<HomeViewModel> = viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.emptyLayout.showProgressBar()
         initRecyclerView()
         initRefreshLayout()
 
@@ -71,23 +72,24 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        vm.sendUiIntent(HomeUiIntent.RefreshIntent)
-    }
-
-    override fun handleState(state: IUiState) {
+    override suspend fun handleState(state: IUiState) {
         when (state) {
+            is HomeUiState.Init -> vm.sendUiIntent(HomeUiIntent.RefreshIntent)
             is HomeUiState.RefreshState -> {
-                _articleAdapter.submitList(state.articleList)
                 binding.refreshLayout.finishRefresh()
+                if (state.articleList?.isEmpty() != false) {
+                    binding.emptyLayout.showRefresh(tip = "加载失败，点击重试") {
+                        vm.sendUiIntent(HomeUiIntent.RefreshIntent)
+                    }
+                    return
+                }
+                binding.emptyLayout.showContent()
+                _articleAdapter.submitList(state.articleList)
+                _headAdapter.setItem(state.bannerList, null)
             }
             is HomeUiState.LoadMoreState -> {
                 _articleAdapter.safeAddAll(state.articleList)
                 binding.refreshLayout.finishLoadMore()
-            }
-            is HomeUiState.LoadBanner -> {
-                _headAdapter.setItem(state.bannerList, null)
             }
             is HomeUiState.ErrorState -> {
                 Toaster.showShort("出错了！")

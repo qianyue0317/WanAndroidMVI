@@ -3,6 +3,8 @@ package com.qianyue.wanandroidmvi
 import android.app.Application
 import android.content.Context
 import com.hjq.toast.Toaster
+import com.qianyue.wanandroidmvi.user.User
+import com.tencent.mmkv.MMKV
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.QbSdk.PreInitCallback
@@ -27,6 +29,7 @@ class WanApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        MMKV.initialize(this)
         // 初始化腾讯 WebView start
         val map = HashMap<String, Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true
@@ -46,5 +49,8 @@ class WanApplication: Application() {
 
         // 初始化toast
         Toaster.init(this)
+
+        // 加载缓存user
+        User.loadCacheUser()
     }
 }

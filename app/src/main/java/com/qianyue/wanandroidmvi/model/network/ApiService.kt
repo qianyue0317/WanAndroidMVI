@@ -41,7 +41,7 @@ interface ApiService {
         @Field("username") userName: String,
         @Field("password") pwd: String,
         @Field("repassword") rpwd: String
-    ): AppResponse<Unit>
+    ): AppResponse<Any>
 
 
     /**
@@ -85,4 +85,14 @@ interface ApiService {
         @Path("pageIndex") pageIndex: Int,
         @Query("page_size") pageSize: Int? = null
     ): AppResponse<AppListData<ArticleItem>>
+
+
+    /**
+     * 获取收藏的文章列表
+     */
+    @GET("lg/collect/list/{pageIndex}/json")
+    suspend fun getCollectedArticleList(
+        @Path("pageIndex") pageIndex: Int,
+        @Query("page_size")pageSize: Int? = null,
+    ) : AppResponse<AppListData<ArticleItem>>
 }

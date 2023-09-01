@@ -58,11 +58,11 @@ abstract class BaseViewModel<UiIntent: IUiIntent, UiState: IUiState> : ViewModel
     abstract fun initState(): UiState
 
     /**
-     * 收到view层发来的意图，处理之
+     * 收到view层发来的意图，处理之。（运行在主线程）
      *
      * @param uiIntent 收到的意图对象
      */
-    abstract fun processIntent(uiIntent: UiIntent)
+    abstract suspend fun processIntent(uiIntent: UiIntent)
 
     /**
      * 通知状态变更，通常在view层接受监听状态变更
