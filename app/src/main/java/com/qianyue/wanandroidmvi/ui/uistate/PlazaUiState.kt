@@ -12,4 +12,5 @@ sealed class PlazaUiState: IUiState {
     class OnRefreshState(val list: List<ArticleItem>? = null) : PlazaUiState()
 
     class OnLoadMoreState(val list: List<ArticleItem>? = null): PlazaUiState()
+    class CollectResult(val successful: Boolean, val errorMsg: String, val position: Int) : PlazaUiState()
 }

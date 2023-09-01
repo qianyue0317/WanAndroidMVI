@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.qianyue.wanandroidmvi.R
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentMineBinding
+import com.qianyue.wanandroidmvi.ext.observeBetter
 import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedActivity
 import com.qianyue.wanandroidmvi.user.User
@@ -21,8 +19,6 @@ import com.qianyue.wanandroidmvi.widgets.RoundedDrawable
 import com.qianyue.wanandroidmvi.widgets.circleOutline
 import com.qianyue.wanandroidmvi.widgets.dp2px
 import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 /**
  * 我的tab fragment
@@ -62,13 +58,7 @@ class MineFragment : BaseFragment<MineViewModel>() {
         initListener()
         initUserView()
 
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                User.loginState.collectLatest {
-                    initUserView()
-                }
-            }
-        }
+        User.userStateData.observeBetter(this.viewLifecycleOwner) { initUserView() }
         return root
     }
 

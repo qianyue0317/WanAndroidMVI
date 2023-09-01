@@ -1,5 +1,6 @@
 package com.qianyue.wanandroidmvi.user
 
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.GsonBuilder
 import com.qianyue.wanandroidmvi.model.bean.UserInfo
 import com.qianyue.wanandroidmvi.utils.WanLog
@@ -14,13 +15,13 @@ object User {
 
     private var userInfo: UserInfo? = null
 
-    val loginState: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val userStateData = MutableLiveData(false)
 
     fun loginSuccess(userInfo: UserInfo) {
         this.userInfo = userInfo
         val mmkv = MMKV.defaultMMKV()
         mmkv.encode(USER_KEY, GsonBuilder().create().toJson(userInfo))
-        loginState.update { true }
+        userStateData.postValue(true)
     }
 
     fun loadCacheUser() {
@@ -29,7 +30,7 @@ object User {
             if (defaultMMKV.containsKey(USER_KEY)) {
                 userInfo = GsonBuilder().create()
                     .fromJson(defaultMMKV.decodeString(USER_KEY, ""), UserInfo::class.java)
-                loginState.update { true }
+                userStateData.postValue(true)
             }
         }.onFailure {
             WanLog.d(TAG, it.message)

@@ -1,21 +1,24 @@
 package com.qianyue.wanandroidmvi.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentHomeBinding
+import com.qianyue.wanandroidmvi.ext.observeBetter
 import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
+import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.uiintent.HomeUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.HomeUiState
+import com.qianyue.wanandroidmvi.user.User
 import com.qianyue.wanandroidmvi.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
@@ -53,6 +56,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         binding.emptyLayout.showProgressBar()
         initRecyclerView()
         initRefreshLayout()
+
+        User.userStateData.observeBetter(viewLifecycleOwner) {
+            vm.sendUiIntent(HomeUiIntent.RefreshIntent)
+        }
 
         return root
     }
@@ -94,6 +101,11 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             is HomeUiState.ErrorState -> {
                 Toaster.showShort("出错了！")
             }
+            is HomeUiState.CollectResult -> {
+                if (state.successful) {
+                    _articleAdapter.notifyItemChanged(state.position, ArticleAdapter.REFRESH_COLLECT_ICON)
+                } else Toaster.showShort("操作失败 -- ${state.errorMsg}")
+            }
         }
     }
 
@@ -108,6 +120,12 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
         _articleAdapter.onItemClick = {
             DetailWebPageActivity.startActivity(binding.recyclerView.context, it.link)
+        }
+
+        _articleAdapter.onCollectClick = {
+            if (User.isLoginSuccess()) {
+                vm.sendUiIntent(HomeUiIntent.CollectOperate(!it.collect, it.id))
+            } else startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
 
         _headAdapter.onBannerItemClick = {

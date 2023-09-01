@@ -1,6 +1,5 @@
 package com.qianyue.wanandroidmvi.base
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment

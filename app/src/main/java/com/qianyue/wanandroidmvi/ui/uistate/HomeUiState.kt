@@ -12,5 +12,7 @@ sealed class HomeUiState: IUiState {
     class Init(): HomeUiState()
     class RefreshState(val bannerList: List<BannerItem>? = null, val articleList: List<ArticleItem>? = null): HomeUiState()
     class LoadMoreState(val articleList: List<ArticleItem>? = null): HomeUiState()
+    class CollectResult(val successful: Boolean,val errorMsg: String, val position: Int = -1) : HomeUiState()
+
     object ErrorState : HomeUiState()
 }

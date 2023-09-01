@@ -9,4 +9,5 @@ import com.qianyue.wanandroidmvi.base.IUiIntent
 sealed class PlazaUiIntent: IUiIntent {
     class RefreshIntent: PlazaUiIntent()
     class LoadMoreIntent : PlazaUiIntent()
+    class CollectOperate(val collect: Boolean, val id: Int) : PlazaUiIntent()
 }

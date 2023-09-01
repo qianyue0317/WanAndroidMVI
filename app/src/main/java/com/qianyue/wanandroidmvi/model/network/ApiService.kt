@@ -95,4 +95,17 @@ interface ApiService {
         @Path("pageIndex") pageIndex: Int,
         @Query("page_size")pageSize: Int? = null,
     ) : AppResponse<AppListData<ArticleItem>>
+
+    /**
+     * 收藏站内文章
+     */
+    @POST("lg/collect/{articleId}/json")
+    suspend fun collectArticle(@Path("articleId")articleId: Int): AppResponse<Any?>
+
+    /**
+     * 收藏站内文章
+     */
+    @Suppress("SpellCheckingInspection")
+    @POST("lg/uncollect_originId/{articleId}/json")
+    suspend fun uncollectArticle(@Path("articleId")articleId: Int): AppResponse<Any?>
 }
