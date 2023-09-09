@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder
 import com.qianyue.wanandroidmvi.model.bean.UserInfo
 import com.qianyue.wanandroidmvi.utils.WanLog
 import com.tencent.mmkv.MMKV
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 
 object User {
     private const val TAG = "user"

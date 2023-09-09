@@ -1,7 +1,3 @@
-import org.gradle.api.internal.artifacts.ivyservice.resolveengine.artifact.ResolvableArtifact
-
-import java.nio.file.Files
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'

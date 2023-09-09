@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.viewModels
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
@@ -47,7 +47,7 @@ class ProjectFragment : BaseFragment<ProjectViewModel>() {
 
             is ProjectUiState.OnCategoriesLoad -> {
                 state.categories?.also {
-                    val fragmentAdapter = object :FragmentStatePagerAdapter(this@ProjectFragment.childFragmentManager) {
+                    val fragmentAdapter = object :FragmentPagerAdapter(this@ProjectFragment.childFragmentManager) {
                         override fun getCount() = it.size
 
                         override fun getItem(position: Int) = ProjectListFragment(it[position].id)

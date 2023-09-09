@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.IntDef
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentCollectedListBinding
@@ -58,13 +59,20 @@ class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
             vm.sendUiIntent(MyCollectedIntent.LoadMoreArticleData(collectedType))
         })
 
+        initRecyclerView()
 
+        return binding.root
+    }
+
+    private fun initRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             this@MyCollectedArticleFragment.adapter = ArticleAdapter()
             adapter = this@MyCollectedArticleFragment.adapter
         }
-        return binding.root
+        adapter?.onCollectClick = {
+            vm.sendUiIntent(MyCollectedIntent.Uncollect(it.originId))
+        }
     }
 
     override suspend fun handleState(state: IUiState) {
@@ -90,6 +98,12 @@ class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
                 adapter?.safeAddAll(state.list)
                 binding.refreshLayout.finishLoadMore()
                 binding.emptyLayout.showContent()
+            }
+            is MyCollectedState.ChangeLastPageState -> {
+                binding.refreshLayout.setEnableLoadMore(!state.isListPage)
+            }
+            is MyCollectedState.UncollectResult -> {
+                if (state.successful) adapter?.removeAt(state.position) else Toaster.showShort("操作失败 -- ${state.errorMsg}")
             }
         }
     }

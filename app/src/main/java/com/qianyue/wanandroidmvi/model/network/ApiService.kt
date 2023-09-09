@@ -103,9 +103,10 @@ interface ApiService {
     suspend fun collectArticle(@Path("articleId")articleId: Int): AppResponse<Any?>
 
     /**
-     * 收藏站内文章
+     * 取消收藏
+     *
      */
     @Suppress("SpellCheckingInspection")
     @POST("lg/uncollect_originId/{articleId}/json")
-    suspend fun uncollectArticle(@Path("articleId")articleId: Int): AppResponse<Any?>
+    suspend fun uncollectArticle(@Path("articleId") articleId: Int): AppResponse<Any?>
 }

@@ -10,4 +10,5 @@ import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedArticleFragment
 sealed class MyCollectedIntent: IUiIntent {
     class RefreshArticleData(@MyCollectedArticleFragment.CollectType var type: Int): MyCollectedIntent()
     class LoadMoreArticleData(@MyCollectedArticleFragment.CollectType var type: Int): MyCollectedIntent()
+    class Uncollect(val id: Int) : MyCollectedIntent()
 }

@@ -27,15 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.qianyue.wanandroidmvi.ui.login.LoginActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedActivity" android:screenOrientation="portrait"/>
-
-        <!--        腾讯浏览器初始化优化-->
+        <activity
+            android:name=".ui.detailwebpage.DetailWebPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mycollected.MyCollectedActivity"
+            android:screenOrientation="portrait" /> <!-- 腾讯浏览器初始化优化 -->
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt"/>
+            android:process=":dexopt" />
     </application>
 
 </manifest>

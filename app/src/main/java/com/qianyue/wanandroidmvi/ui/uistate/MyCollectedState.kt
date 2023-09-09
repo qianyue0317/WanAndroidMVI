@@ -11,4 +11,7 @@ sealed class MyCollectedState: IUiState {
     class Init : MyCollectedState()
     class OnRefreshArticleList(var list: List<ArticleItem>? = null): MyCollectedState()
     class OnLoadMoreArticleList(var list: List<ArticleItem>? = null): MyCollectedState()
+
+    class ChangeLastPageState(val isListPage: Boolean): MyCollectedState()
+    class UncollectResult(val successful: Boolean, val errorMsg: String, val position: Int) : MyCollectedState()
 }

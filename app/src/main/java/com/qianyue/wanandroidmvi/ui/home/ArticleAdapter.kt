@@ -19,7 +19,7 @@ import java.lang.StringBuilder
  * @since 2023/8/16
  */
 class ArticleAdapter :
-    BaseQuickAdapter<ArticleItem,ArticleAdapter.ArticleHolder>() {
+    BaseQuickAdapter<ArticleItem, ArticleAdapter.ArticleHolder>() {
 
     companion object {
         const val REFRESH_COLLECT_ICON = 1
@@ -31,7 +31,8 @@ class ArticleAdapter :
 
     var onCollectClick: ((ArticleItem) -> Unit)? = null
 
-    inner class ArticleHolder(val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ArticleHolder(val binding: ItemArticleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         var cacheItem: ArticleItem? = null
     }
 
@@ -42,7 +43,7 @@ class ArticleAdapter :
             tvAuthor.text = item?.author
             tvTitle.text = item?.title
             tvTime.text = TimeFormat.formatDateTime(item?.publishTime)
-            val sb = StringBuilder(item?.superChapterName?:"")
+            val sb = StringBuilder(item?.superChapterName ?: "")
             if (sb.isNotEmpty() && !TextUtils.isEmpty(item?.chapterName)) sb.append("·")
             sb.append(item?.chapterName ?: "")
             tvDetailSource.text = sb.toString()

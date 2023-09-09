@@ -13,24 +13,28 @@ import com.qianyue.wanandroidmvi.constant.LOG
 object WanLog {
     const val DEFAULT_TAG = "wan_app_log"
 
+    @JvmStatic
     fun i(tag: String = DEFAULT_TAG, msg: Any?) {
         if (LOG.canI()) {
             Log.i(tag, msg?.toString() ?: "nullStr")
         }
     }
 
+    @JvmStatic
     fun d(tag: String = DEFAULT_TAG, msg: Any?) {
         if (LOG.canD()) {
             Log.d(tag, msg?.toString() ?: "nullStr")
         }
     }
 
+    @JvmStatic
     fun w(tag: String = DEFAULT_TAG, msg: Any?) {
         if (LOG.canW()) {
             Log.w(tag, msg?.toString() ?: "nullStr")
         }
     }
 
+    @JvmStatic
     fun e(tag: String = DEFAULT_TAG, msg: Any?) {
         if (LOG.canE()) {
             Log.e(tag, msg?.toString() ?: "nullStr")
