@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.qianyue.wanandroidmvi.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/list_data_layout" />
 
     <fragment
         android:id="@+id/navigation_project"
@@ -21,7 +21,7 @@
         android:id="@+id/navigation_plaza"
         android:name="com.qianyue.wanandroidmvi.ui.plaza.PlazaFragment"
         android:label="@string/title_plaza"
-        tools:layout="@layout/fragment_plaza" />
+        tools:layout="@layout/list_data_layout" />
 
     <fragment
         android:id="@+id/navigation_mine"

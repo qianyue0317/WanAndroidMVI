@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
-import com.qianyue.wanandroidmvi.databinding.FragmentCollectedListBinding
+import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
 import com.qianyue.wanandroidmvi.ui.uiintent.MyCollectedIntent
 import com.qianyue.wanandroidmvi.ui.uistate.MyCollectedState
 import com.qianyue.wanandroidmvi.viewmodel.MyCollectedViewModel
@@ -21,9 +21,9 @@ import com.qianyue.wanandroidmvi.widgets.classicConfig
  */
 class MyCollectedWebAddressFragment : BaseFragment<MyCollectedViewModel>() {
     private var adapter: WebAddressAdapter? = null
-    private var _binding: FragmentCollectedListBinding? = null
+    private var _binding: ListDataLayoutBinding? = null
 
-    private val binding: FragmentCollectedListBinding get() = _binding!!
+    private val binding: ListDataLayoutBinding get() = _binding!!
 
     override fun lazyVM(): Lazy<MyCollectedViewModel> = viewModels()
 
@@ -33,7 +33,7 @@ class MyCollectedWebAddressFragment : BaseFragment<MyCollectedViewModel>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCollectedListBinding.inflate(inflater, container, false)
+        _binding = ListDataLayoutBinding.inflate(inflater, container, false)
 
         binding.emptyLayout.showProgressBar("正在加载")
 

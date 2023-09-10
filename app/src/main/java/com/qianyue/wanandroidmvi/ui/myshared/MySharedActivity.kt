@@ -13,7 +13,7 @@ import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.R
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
-import com.qianyue.wanandroidmvi.databinding.ActivityMySharedBinding
+import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
 import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
 import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.showContentOrEmpty
@@ -30,15 +30,15 @@ import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
 class MySharedActivity: BaseActivity<MySharedViewModel>() {
     private var _adapter: ArticleAdapter? = null
 
-    private var _binding: ActivityMySharedBinding? = null
+    private var _binding: ListDataLayoutBinding? = null
 
-    private val binding: ActivityMySharedBinding get() = _binding!!
+    private val binding: ListDataLayoutBinding get() = _binding!!
 
     override fun lazyVM(): Lazy<MySharedViewModel> = viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMySharedBinding.inflate(layoutInflater)
+        _binding = ListDataLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.apply {

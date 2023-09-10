@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
-import com.qianyue.wanandroidmvi.databinding.FragmentPlazaBinding
+import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
 import com.qianyue.wanandroidmvi.ext.observeBetter
 import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
 import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
@@ -30,7 +30,7 @@ import com.qianyue.wanandroidmvi.widgets.classicConfig
  */
 class PlazaFragment : BaseFragment<PlazaViewModel>() {
 
-    private var _binding: FragmentPlazaBinding? = null
+    private var _binding: ListDataLayoutBinding? = null
 
     private val binding get() = _binding!!
     override fun lazyVM(): Lazy<PlazaViewModel> = viewModels()
@@ -45,7 +45,7 @@ class PlazaFragment : BaseFragment<PlazaViewModel>() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentPlazaBinding.inflate(inflater, container, false)
+        _binding = ListDataLayoutBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         initRecyclerView()
