@@ -24,8 +24,8 @@ class MyCollectedActivity: BaseActivity<MyCollectedViewModel>() {
     private val binding: ActivityMyCollectedBinding get() = _binding!!
 
     init {
-        fragments.add(MyCollectedArticleFragment().apply { collectedType = MyCollectedArticleFragment.COLLECT_TYPE_ARTICLE })
-        fragments.add(MyCollectedArticleFragment().apply { collectedType = MyCollectedArticleFragment.COLLECT_TYPE_URL })
+        fragments.add(MyCollectedArticleFragment())
+        fragments.add(MyCollectedWebAddressFragment())
     }
 
     override fun lazyVM(): Lazy<MyCollectedViewModel> = viewModels()
@@ -44,6 +44,8 @@ class MyCollectedActivity: BaseActivity<MyCollectedViewModel>() {
             override fun getPageTitle(position: Int): CharSequence = if (position == 0) "文章" else "网站"
         }
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+        supportActionBar?.title = "我的收藏"
     }
 
     override suspend fun handleState(state: IUiState) {

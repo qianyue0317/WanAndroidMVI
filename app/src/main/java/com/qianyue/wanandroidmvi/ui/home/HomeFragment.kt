@@ -119,7 +119,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         binding.recyclerView.adapter = _concatAdapter
 
         _articleAdapter.onItemClick = {
-            DetailWebPageActivity.startActivity(binding.recyclerView.context, it.link)
+            DetailWebPageActivity.startActivity(binding.recyclerView.context, it.link, it.title)
         }
 
         _articleAdapter.onCollectClick = {
@@ -129,7 +129,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
 
         _headAdapter.onBannerItemClick = {
-            DetailWebPageActivity.startActivity(binding.recyclerView.context, it.url)
+            DetailWebPageActivity.startActivity(binding.recyclerView.context, it.url, it.title)
         }
     }
 

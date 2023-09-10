@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
+import com.qianyue.wanandroidmvi.R
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivityDetailWebPageBinding
@@ -22,9 +24,10 @@ class DetailWebPageActivity : BaseActivity<DetailWebPageViewModel>() {
     var url: String? = null
 
     companion object {
-        fun startActivity(context: Context, url: String?) {
+        fun startActivity(context: Context, url: String?, title: String?) {
             context.startActivity(Intent(context, DetailWebPageActivity::class.java).apply {
-                putExtra("page_url", url?:"")
+                putExtra("page_url", url ?: "")
+                putExtra("page_title", title ?: "")
             })
         }
     }
@@ -36,15 +39,30 @@ class DetailWebPageActivity : BaseActivity<DetailWebPageViewModel>() {
         val binding = ActivityDetailWebPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         url = intent.getStringExtra("page_url")
+        val title = intent.getStringExtra("page_title")
         if (TextUtils.isEmpty(url)) {
             finish()
             return
         }
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = title
         binding.webView.webViewClient = object : WebViewClient() {}
         binding.webView.webChromeClient = WebChromeClient()
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.loadUrl(url)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.detail_action_bar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override suspend fun handleState(state: IUiState) {

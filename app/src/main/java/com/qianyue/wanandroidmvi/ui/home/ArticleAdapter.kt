@@ -18,7 +18,7 @@ import java.lang.StringBuilder
  * @author QianYue
  * @since 2023/8/16
  */
-class ArticleAdapter :
+class ArticleAdapter(val enableSlideMenu: Boolean = false, val slideMenuLayoutId: Int = -1) :
     BaseQuickAdapter<ArticleItem, ArticleAdapter.ArticleHolder>() {
 
     companion object {
@@ -31,7 +31,9 @@ class ArticleAdapter :
 
     var onCollectClick: ((ArticleItem) -> Unit)? = null
 
-    inner class ArticleHolder(val binding: ItemArticleBinding) :
+    var setupSlideMenu: ((ArticleHolder) -> Unit)? = null
+
+    class ArticleHolder(val binding: ItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
         var cacheItem: ArticleItem? = null
     }
@@ -52,14 +54,24 @@ class ArticleAdapter :
         }
     }
 
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        (holder as ArticleHolder).binding.root.hideSlideMenu()
+    }
+
     override fun onCreateViewHolder(
         context: Context,
         parent: ViewGroup,
         viewType: Int
     ): ArticleHolder {
         val binding = ItemArticleBinding.inflate(inflater, parent, false)
+        if (slideMenuLayoutId > 0) {
+            inflater.inflate(slideMenuLayoutId, binding.root, true)
+        }
         val holder = ArticleHolder(binding)
-        binding.root.setOnClickListener {
+        setupSlideMenu?.invoke(holder)
+        binding.root.enableSlideMenu = enableSlideMenu
+        binding.itemContainer.setOnClickListener {
             onItemClick?.invoke(holder.cacheItem ?: return@setOnClickListener)
         }
         binding.ivFavor.setSafeClickListener {

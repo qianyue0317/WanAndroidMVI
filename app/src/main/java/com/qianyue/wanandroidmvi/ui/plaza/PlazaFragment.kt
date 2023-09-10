@@ -19,7 +19,6 @@ import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.uiintent.PlazaUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.PlazaUiState
 import com.qianyue.wanandroidmvi.user.User
-import com.qianyue.wanandroidmvi.utils.WanLog
 import com.qianyue.wanandroidmvi.viewmodel.PlazaViewModel
 import com.qianyue.wanandroidmvi.widgets.classicConfig
 
@@ -76,7 +75,7 @@ class PlazaFragment : BaseFragment<PlazaViewModel>() {
         }
 
         adapter.onItemClick = {
-            DetailWebPageActivity.startActivity(binding.recyclerView.context, it.link)
+            DetailWebPageActivity.startActivity(binding.recyclerView.context, it.link, it.title)
         }
 
         adapter.onCollectClick = {

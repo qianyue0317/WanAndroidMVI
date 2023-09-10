@@ -66,15 +66,19 @@ fun Float.dp2px(): Float {
  * refreshLayout设置经典header和footer
  */
 fun SmartRefreshLayout.classicConfig(
-    onRefresh: (RefreshLayout) -> Unit,
-    onLoadMore: (RefreshLayout) -> Unit
+    onRefresh: ((RefreshLayout) -> Unit)? = null,
+    onLoadMore: ((RefreshLayout) -> Unit)? = null
 ) {
-    setEnableRefresh(true)
-    setEnableLoadMore(true)
-    setRefreshHeader(ClassicsHeader(context))
-    setRefreshFooter(ClassicsFooter(context))
-    setOnRefreshListener(onRefresh)
-    setOnLoadMoreListener(onLoadMore)
+    setEnableRefresh(onRefresh != null)
+    setEnableLoadMore(onLoadMore != null)
+    onRefresh?.let {
+        setOnRefreshListener(it)
+        setRefreshHeader(ClassicsHeader(context))
+    }
+    onLoadMore?.let {
+        setOnLoadMoreListener(it)
+        setRefreshFooter(ClassicsFooter(context))
+    }
 }
 
 fun TextView.filterChineseChar() {

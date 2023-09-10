@@ -2,6 +2,7 @@ package com.qianyue.wanandroidmvi.ui
 
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.qianyue.wanandroidmvi.widgets.emptyview.SupportEmptyLayout
 
 /**
  * @author QianYue
@@ -12,3 +13,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 fun <T, VH : RecyclerView.ViewHolder> BaseQuickAdapter<T, VH>.safeAddAll(collection: Collection<T>?) =
     collection?.takeUnless { it.isEmpty() }?.let { addAll(it) }
 
+fun <T, VH : RecyclerView.ViewHolder> BaseQuickAdapter<T, VH>.showContentOrEmpty(emptyLayout: SupportEmptyLayout) {
+    if (items.isEmpty()) {
+        emptyLayout.showNoData()
+    } else emptyLayout.showContent()
+}

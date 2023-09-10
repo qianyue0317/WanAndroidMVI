@@ -32,4 +32,8 @@
         <attr name="roundClipRadius" format="dimension" />
         <attr name="roundClipColor" format="color" />
     </declare-styleable>
+
+    <style name="WanBottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
 </resources>

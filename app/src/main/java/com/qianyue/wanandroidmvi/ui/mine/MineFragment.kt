@@ -13,6 +13,7 @@ import com.qianyue.wanandroidmvi.databinding.FragmentMineBinding
 import com.qianyue.wanandroidmvi.ext.observeBetter
 import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedActivity
+import com.qianyue.wanandroidmvi.ui.myshared.MySharedActivity
 import com.qianyue.wanandroidmvi.user.User
 import com.qianyue.wanandroidmvi.viewmodel.MineViewModel
 import com.qianyue.wanandroidmvi.widgets.RoundedDrawable
@@ -74,6 +75,13 @@ class MineFragment : BaseFragment<MineViewModel>() {
         binding.llMyCollectItem.setSafeClickListener {
             if (User.isLoginSuccess()) {
                 startActivity(Intent(requireContext(), MyCollectedActivity::class.java))
+            } else {
+                startActivity(Intent(requireContext(), LoginActivity::class.java))
+            }
+        }
+        binding.llMyShareItem.setSafeClickListener {
+            if (User.isLoginSuccess()) {
+                startActivity(Intent(requireContext(), MySharedActivity::class.java))
             } else {
                 startActivity(Intent(requireContext(), LoginActivity::class.java))
             }

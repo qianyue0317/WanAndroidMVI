@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:paddingBottom="16dp"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_margin"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="@dimen/layout_margin"
+        app:boxBackgroundColor="#00000000"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="@dimen/layout_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/layout_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/layout_corner_radius"
+        app:boxCornerRadiusTopStart="@dimen/layout_corner_radius"
+        app:boxStrokeWidth="1dp"
+        app:errorEnabled="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="文章标题"
+            android:includeFontPadding="false"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/layout_margin"
+        app:boxBackgroundColor="#00000000"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="@dimen/layout_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/layout_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/layout_corner_radius"
+        app:boxCornerRadiusTopStart="@dimen/layout_corner_radius"
+        app:boxStrokeWidth="1dp"
+        app:errorEnabled="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_title">
+
+        <EditText
+            android:id="@+id/et_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="文章链接"
+            android:includeFontPadding="false"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        app:layout_constraintTop_toBottomOf="@+id/til_link"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:text="分  享"
+            android:textColor="@color/white"
+            android:background="?attr/colorPrimary"
+            android:gravity="center"
+            android:padding="4dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

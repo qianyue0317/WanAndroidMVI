@@ -58,7 +58,7 @@ class SupportEmptyLayout @JvmOverloads constructor(
                 it.visibility = View.GONE
             }
         }
-
+        isClickable = false
     }
 
     fun showRefresh(tip: String = "无数据，点击重试", onRefreshClick: (TextView) -> Unit = {}) {

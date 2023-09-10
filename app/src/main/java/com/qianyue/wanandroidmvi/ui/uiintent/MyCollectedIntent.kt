@@ -1,14 +1,21 @@
 package com.qianyue.wanandroidmvi.ui.uiintent
 
 import com.qianyue.wanandroidmvi.base.IUiIntent
-import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedArticleFragment
 
 /**
  * @author QianYue
  * @since 2023/8/31
  */
 sealed class MyCollectedIntent: IUiIntent {
-    class RefreshArticleData(@MyCollectedArticleFragment.CollectType var type: Int): MyCollectedIntent()
-    class LoadMoreArticleData(@MyCollectedArticleFragment.CollectType var type: Int): MyCollectedIntent()
-    class Uncollect(val id: Int) : MyCollectedIntent()
+    // <editor-fold desc="收藏的文章列表">
+    class RefreshArticleData(): MyCollectedIntent()
+    class LoadMoreArticleData(): MyCollectedIntent()
+    // </editor-fold>
+
+    // <editor-fold desc="收藏的网站列表">
+    class RefreshWebAddressData(): MyCollectedIntent()
+    // </editor-fold>
+
+    class UncollectArticle(val id: Int) : MyCollectedIntent()
+    class UncollectWebAddress(val id: Int) : MyCollectedIntent()
 }

@@ -35,7 +35,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.mycollected.MyCollectedActivity"
-            android:screenOrientation="portrait" /> <!-- 腾讯浏览器初始化优化 -->
+            android:screenOrientation="portrait" />
+        <activity android:name="com.qianyue.wanandroidmvi.ui.myshared.MySharedActivity" android:screenOrientation="portrait" /> <!-- 腾讯浏览器初始化优化 -->
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"

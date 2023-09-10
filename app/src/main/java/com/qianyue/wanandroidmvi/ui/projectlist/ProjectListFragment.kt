@@ -82,7 +82,7 @@ class ProjectListFragment(var cid: Int) : BaseFragment<ProjectViewModel>() {
             _adapter = ProjectAdapter()
             adapter = this@ProjectListFragment.adapter
             _adapter?.onItemClick = { _, value ->
-                DetailWebPageActivity.startActivity(this.context, value.link)
+                DetailWebPageActivity.startActivity(this.context, value.link, value.title)
             }
         }
     }

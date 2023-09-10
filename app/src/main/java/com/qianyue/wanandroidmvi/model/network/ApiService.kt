@@ -5,7 +5,9 @@ import com.qianyue.wanandroidmvi.model.bean.ArticleItem
 import com.qianyue.wanandroidmvi.model.bean.BannerItem
 import com.qianyue.wanandroidmvi.model.bean.ProjectCategory
 import com.qianyue.wanandroidmvi.model.bean.ProjectItem
+import com.qianyue.wanandroidmvi.model.bean.SharedData
 import com.qianyue.wanandroidmvi.model.bean.UserInfo
+import com.qianyue.wanandroidmvi.model.bean.WebAddressItem
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -75,7 +77,10 @@ interface ApiService {
      * pageIndex 取值 【1-40】
      */
     @GET("project/list/{pageIndex}/json")
-    suspend fun getProjectList(@Path("pageIndex")pageIndex: Int, @Query("cid") cid: Int): AppResponse<AppListData<ProjectItem>>
+    suspend fun getProjectList(
+        @Path("pageIndex") pageIndex: Int,
+        @Query("cid") cid: Int
+    ): AppResponse<AppListData<ProjectItem>>
 
     /**
      * 获取广场页面文章列表数据
@@ -93,14 +98,14 @@ interface ApiService {
     @GET("lg/collect/list/{pageIndex}/json")
     suspend fun getCollectedArticleList(
         @Path("pageIndex") pageIndex: Int,
-        @Query("page_size")pageSize: Int? = null,
-    ) : AppResponse<AppListData<ArticleItem>>
+        @Query("page_size") pageSize: Int? = null,
+    ): AppResponse<AppListData<ArticleItem>>
 
     /**
      * 收藏站内文章
      */
     @POST("lg/collect/{articleId}/json")
-    suspend fun collectArticle(@Path("articleId")articleId: Int): AppResponse<Any?>
+    suspend fun collectArticle(@Path("articleId") articleId: Int): AppResponse<Any?>
 
     /**
      * 取消收藏
@@ -109,4 +114,22 @@ interface ApiService {
     @Suppress("SpellCheckingInspection")
     @POST("lg/uncollect_originId/{articleId}/json")
     suspend fun uncollectArticle(@Path("articleId") articleId: Int): AppResponse<Any?>
+
+    @GET("lg/collect/usertools/json")
+    suspend fun getCollectedWebAddressList(): AppResponse<List<WebAddressItem>>
+
+    @FormUrlEncoded
+    @Suppress("SpellCheckingInspection")
+    @POST("lg/collect/deletetool/json")
+    suspend fun uncollectTool(@Field("id") id: Int): AppResponse<Any?>
+
+    @GET("user/lg/private_articles/{pageIndex}/json")
+    suspend fun getMySharedArticleList(@Path("pageIndex") pageIndex: Int): AppResponse<SharedData>
+
+    @FormUrlEncoded
+    @POST("lg/user_article/add/json")
+    suspend fun shareArticle(@Field("title") title: String, @Field("link") link: String): AppResponse<Any?>
+
+    @POST("lg/user_article/delete/{articleId}/json")
+    suspend fun deleteSharedArticle(@Path("articleId") id: Int): AppResponse<Any?>
 }

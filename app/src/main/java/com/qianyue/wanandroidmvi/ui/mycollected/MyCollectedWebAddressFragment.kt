@@ -10,8 +10,6 @@ import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentCollectedListBinding
-import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
-import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.uiintent.MyCollectedIntent
 import com.qianyue.wanandroidmvi.ui.uistate.MyCollectedState
 import com.qianyue.wanandroidmvi.viewmodel.MyCollectedViewModel
@@ -19,16 +17,16 @@ import com.qianyue.wanandroidmvi.widgets.classicConfig
 
 /**
  * @author QianYue
- * @since 2023/8/31
+ * @since 2023/9/9
  */
-class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
-
+class MyCollectedWebAddressFragment : BaseFragment<MyCollectedViewModel>() {
+    private var adapter: WebAddressAdapter? = null
     private var _binding: FragmentCollectedListBinding? = null
 
     private val binding: FragmentCollectedListBinding get() = _binding!!
 
-    private var adapter: ArticleAdapter? = null
     override fun lazyVM(): Lazy<MyCollectedViewModel> = viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,15 +35,7 @@ class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
     ): View {
         _binding = FragmentCollectedListBinding.inflate(inflater, container, false)
 
-        binding.emptyLayout.showRefresh {
-            vm.sendUiIntent(MyCollectedIntent.RefreshArticleData())
-        }
-
-        binding.refreshLayout.classicConfig(onRefresh = {
-            vm.sendUiIntent(MyCollectedIntent.RefreshArticleData())
-        }, onLoadMore = {
-            vm.sendUiIntent(MyCollectedIntent.LoadMoreArticleData())
-        })
+        binding.emptyLayout.showProgressBar("正在加载")
 
         initRecyclerView()
 
@@ -53,43 +43,37 @@ class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
     }
 
     private fun initRecyclerView() {
+        binding.refreshLayout.classicConfig(onRefresh = {
+            vm.sendUiIntent(MyCollectedIntent.RefreshWebAddressData())
+        })
+
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            this@MyCollectedArticleFragment.adapter = ArticleAdapter()
-            adapter = this@MyCollectedArticleFragment.adapter
+            this@MyCollectedWebAddressFragment.adapter = WebAddressAdapter()
+            adapter = this@MyCollectedWebAddressFragment.adapter
         }
-        adapter?.onCollectClick = {
-            vm.sendUiIntent(MyCollectedIntent.UncollectArticle(it.originId))
+        adapter?.onUncollectItemListener = {
+            vm.sendUiIntent(MyCollectedIntent.UncollectWebAddress(it.id))
         }
     }
 
     override suspend fun handleState(state: IUiState) {
         when (state) {
-            is MyCollectedState.Init -> {
-                binding.emptyLayout.showProgressBar()
-                vm.sendUiIntent(MyCollectedIntent.RefreshArticleData())
-            }
-            is MyCollectedState.OnRefreshArticleList -> {
+            is MyCollectedState.Init -> vm.sendUiIntent(MyCollectedIntent.RefreshWebAddressData())
+            is MyCollectedState.OnRefreshWebAddressList -> {
+                binding.refreshLayout.finishRefresh()
                 if (state.list == null) {
-                    binding.emptyLayout.showRefresh("加载失败，请重试") {  }
+                    binding.emptyLayout.showRefresh("加载失败，请重试") { }
                     return
                 }
                 if (state.list!!.isEmpty()) {
                     binding.emptyLayout.showNoData()
                     return
                 }
+                binding.emptyLayout.showContent()
                 adapter?.submitList(state.list)
-                binding.refreshLayout.finishRefresh()
-                binding.emptyLayout.showContent()
             }
-            is MyCollectedState.OnLoadMoreArticleList -> {
-                adapter?.safeAddAll(state.list)
-                binding.refreshLayout.finishLoadMore()
-                binding.emptyLayout.showContent()
-            }
-            is MyCollectedState.ChangeLastPageState -> {
-                binding.refreshLayout.setEnableLoadMore(!state.isListPage)
-            }
+
             is MyCollectedState.UncollectResult -> {
                 if (state.successful) {
                     adapter?.removeAt(state.position)
@@ -101,6 +85,7 @@ class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
