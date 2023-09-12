@@ -19,5 +19,6 @@ sealed class SearchUiIntent : IUiIntent {
     class SaveHistoryLocal : SearchUiIntent()
     class ClearHistory : SearchUiIntent()
     class RemoveKeyword(val pos: Int) : SearchUiIntent()
+    class CollectOperate(val collect: Boolean, val id: Int): SearchUiIntent()
     // </editor-fold>
 }

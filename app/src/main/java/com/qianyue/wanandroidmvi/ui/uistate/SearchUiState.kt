@@ -21,5 +21,6 @@ sealed class SearchUiState: IUiState {
     class OnSaveHistory(val toPos: Int, val fromPos: Int) : SearchUiState()
     class OnClearHistory : SearchUiState()
     class OnDeleteKeyword(val pos: Int) : SearchUiState()
+    class CollectResult(val successful: Boolean, val errorMsg: String, val position: Int) : SearchUiState()
     // </editor-fold>
 }

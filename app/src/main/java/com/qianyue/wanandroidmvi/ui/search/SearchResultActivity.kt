@@ -5,14 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
 import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
+import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.showContentOrEmpty
 import com.qianyue.wanandroidmvi.ui.uiintent.SearchUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.SearchUiState
+import com.qianyue.wanandroidmvi.user.User
 import com.qianyue.wanandroidmvi.viewmodel.SearchViewModel
 import com.qianyue.wanandroidmvi.widgets.classicConfig
 
@@ -72,6 +75,13 @@ class SearchResultActivity : BaseActivity<SearchViewModel>() {
             _adapter = ArticleAdapter()
             adapter = _adapter
         }
+        adapter.onCollectClick = {
+            if (User.isLoginSuccess()) {
+                vm.sendUiIntent(SearchUiIntent.CollectOperate(!it.collect, it.id))
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        }
     }
 
     override suspend fun handleState(state: IUiState) {
@@ -91,6 +101,15 @@ class SearchResultActivity : BaseActivity<SearchViewModel>() {
                 adapter.safeAddAll(state.list)
                 adapter.showContentOrEmpty(binding.emptyLayout)
                 binding.refreshLayout.finishLoadMore()
+            }
+
+            is SearchUiState.CollectResult -> {
+                if (state.successful) {
+                    adapter.notifyItemChanged(
+                        state.position,
+                        ArticleAdapter.REFRESH_COLLECT_ICON
+                    )
+                } else Toaster.showShort("操作失败 -- ${state.errorMsg}")
             }
         }
     }

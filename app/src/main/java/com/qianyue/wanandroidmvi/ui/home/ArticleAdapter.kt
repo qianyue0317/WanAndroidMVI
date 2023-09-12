@@ -1,6 +1,7 @@
 package com.qianyue.wanandroidmvi.ui.home
 
 import android.content.Context
+import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,7 @@ class ArticleAdapter(val enableSlideMenu: Boolean = false, val slideMenuLayoutId
             tvTagTop.visibility = if (item?.type == 1) View.VISIBLE else View.GONE
             tvAuthor.visibility = if (TextUtils.isEmpty(item?.author)) View.GONE else View.VISIBLE
             tvAuthor.text = item?.author
-            tvTitle.text = item?.title
+            tvTitle.text = Html.fromHtml(item?.title, Html.FROM_HTML_MODE_COMPACT)
             tvTime.text = TimeFormat.formatDateTime(item?.publishTime)
             val sb = StringBuilder(item?.superChapterName ?: "")
             if (sb.isNotEmpty() && !TextUtils.isEmpty(item?.chapterName)) sb.append("·")
