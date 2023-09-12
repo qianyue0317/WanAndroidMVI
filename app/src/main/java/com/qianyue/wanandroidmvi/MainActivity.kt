@@ -1,6 +1,9 @@
 package com.qianyue.wanandroidmvi
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -14,6 +17,7 @@ import com.qianyue.wanandroidmvi.ui.home.HomeFragment
 import com.qianyue.wanandroidmvi.ui.mine.MineFragment
 import com.qianyue.wanandroidmvi.ui.plaza.PlazaFragment
 import com.qianyue.wanandroidmvi.ui.projectlist.ProjectFragment
+import com.qianyue.wanandroidmvi.ui.search.SearchActivity
 import com.qianyue.wanandroidmvi.viewmodel.MainViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -109,6 +113,18 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 _quit = false
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_search) {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override suspend fun handleState(state: IUiState) {

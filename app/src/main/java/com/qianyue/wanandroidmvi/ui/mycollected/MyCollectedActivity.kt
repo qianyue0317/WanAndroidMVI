@@ -1,6 +1,7 @@
 package com.qianyue.wanandroidmvi.ui.mycollected
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
@@ -36,6 +37,11 @@ class MyCollectedActivity: BaseActivity<MyCollectedViewModel>() {
 
         setContentView(binding.root)
 
+        supportActionBar?.apply {
+            title = "我的收藏"
+            setDisplayHomeAsUpEnabled(true)
+        }
+
         binding.viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getCount(): Int = 2
 
@@ -45,7 +51,14 @@ class MyCollectedActivity: BaseActivity<MyCollectedViewModel>() {
         }
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        supportActionBar?.title = "我的收藏"
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override suspend fun handleState(state: IUiState) {

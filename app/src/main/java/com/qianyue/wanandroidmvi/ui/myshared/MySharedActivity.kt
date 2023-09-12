@@ -14,6 +14,7 @@ import com.qianyue.wanandroidmvi.R
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
+import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
 import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
 import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.showContentOrEmpty
@@ -71,6 +72,9 @@ class MySharedActivity: BaseActivity<MySharedViewModel>() {
             }
             adapter = _adapter
         }
+        _adapter?.onItemClick = {
+            DetailWebPageActivity.startActivity(this, it.link, it.title)
+        }
     }
 
     override suspend fun handleState(state: IUiState) {
@@ -121,7 +125,7 @@ class MySharedActivity: BaseActivity<MySharedViewModel>() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.my_share_menu, menu)
+        menuInflater.inflate(R.menu.layout_menu_plus, menu)
         return true
     }
 
@@ -131,7 +135,7 @@ class MySharedActivity: BaseActivity<MySharedViewModel>() {
                 finish()
                 return true
             }
-            R.id.menu_share -> {
+            R.id.menu_plus -> {
                 BottomSheetDialog(this, R.style.WanBottomSheetDialog).apply {
                     setContentView(R.layout.bottom_sheet_share)
 

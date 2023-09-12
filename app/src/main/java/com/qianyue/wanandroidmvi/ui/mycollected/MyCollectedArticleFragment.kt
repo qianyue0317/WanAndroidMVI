@@ -10,6 +10,7 @@ import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
+import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
 import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
 import com.qianyue.wanandroidmvi.ui.safeAddAll
 import com.qianyue.wanandroidmvi.ui.uiintent.MyCollectedIntent
@@ -60,6 +61,9 @@ class MyCollectedArticleFragment(): BaseFragment<MyCollectedViewModel>() {
         }
         adapter?.onCollectClick = {
             vm.sendUiIntent(MyCollectedIntent.UncollectArticle(it.originId))
+        }
+        adapter?.onItemClick = {
+            DetailWebPageActivity.startActivity(requireContext(), it.link, it.title)
         }
     }
 

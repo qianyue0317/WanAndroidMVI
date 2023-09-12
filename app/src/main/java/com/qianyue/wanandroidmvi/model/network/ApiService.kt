@@ -3,9 +3,11 @@ package com.qianyue.wanandroidmvi.model.network
 import com.qianyue.wanandroidmvi.model.bean.AppListData
 import com.qianyue.wanandroidmvi.model.bean.ArticleItem
 import com.qianyue.wanandroidmvi.model.bean.BannerItem
+import com.qianyue.wanandroidmvi.model.bean.KeyWord
 import com.qianyue.wanandroidmvi.model.bean.ProjectCategory
 import com.qianyue.wanandroidmvi.model.bean.ProjectItem
 import com.qianyue.wanandroidmvi.model.bean.SharedData
+import com.qianyue.wanandroidmvi.model.bean.TodoItem
 import com.qianyue.wanandroidmvi.model.bean.UserInfo
 import com.qianyue.wanandroidmvi.model.bean.WebAddressItem
 import retrofit2.http.Field
@@ -132,4 +134,14 @@ interface ApiService {
 
     @POST("lg/user_article/delete/{articleId}/json")
     suspend fun deleteSharedArticle(@Path("articleId") id: Int): AppResponse<Any?>
+
+    @GET("lg/todo/v2/list/{pageIndex}/json")
+    suspend fun getTodoList(@Path("pageIndex") index: Int): AppResponse<AppListData<TodoItem>>
+
+    @GET("hotkey/json")
+    suspend fun getHotKeyWords(): AppResponse<List<KeyWord>>
+
+    @FormUrlEncoded
+    @POST("article/query/{pageIndex}/json")
+    suspend fun searchForKeyWord(@Path("pageIndex") index: Int, @Field("k") keyword: String): AppResponse<AppListData<ArticleItem>>
 }

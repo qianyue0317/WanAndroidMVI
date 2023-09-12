@@ -10,4 +10,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="sub_title_color">#252525</color>
     <color name="sub_desc_color">#555555</color>
+    <color name="tag_bg_color">#B5B5B5</color>
+    <color name="tag_bg_color1">#E35454</color>
+    <color name="tag_bg_color2">#B59B42</color>
+    <color name="tag_bg_color3">#549A3A</color>
+    <color name="tag_bg_color4">#34856E</color>
+    <color name="tag_bg_color5">#4966B1</color>
+    <color name="tag_bg_color6">#9B4BAA</color>
 </resources>

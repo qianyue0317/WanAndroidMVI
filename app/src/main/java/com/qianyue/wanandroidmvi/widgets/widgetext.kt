@@ -62,6 +62,10 @@ fun Float.dp2px(): Float {
     return WanApplication.instance.resources.displayMetrics.density * this
 }
 
+fun Int.dp2px(): Int {
+    return (WanApplication.instance.resources.displayMetrics.density * this).toInt()
+}
+
 /**
  * refreshLayout设置经典header和footer
  */

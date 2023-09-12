@@ -25,6 +25,7 @@ class RoundedDrawable: Drawable() {
     private val _path = Path()
     private val _copyBounds = Rect()
 
+    var semicircle = false
     var radius = 0f
         set(value) {
             field = value
@@ -68,20 +69,21 @@ class RoundedDrawable: Drawable() {
 
     private fun resetPath(path: Path, rect: Rect) {
         _path.reset()
+        val semicircleRadius = rect.height() / 2
         path.addRoundRect(
             rect.left.toFloat(),
             rect.top.toFloat(),
             rect.right.toFloat(),
             rect.bottom.toFloat(),
             floatArrayOf(
-                radiusLT,
-                radiusLT,
-                radiusRT,
-                radiusRT,
-                radiusRB,
-                radiusRB,
-                radiusLB,
-                radiusLB
+                if (semicircle) semicircleRadius.toFloat() else radiusLT,
+                if (semicircle) semicircleRadius.toFloat() else radiusLT,
+                if (semicircle) semicircleRadius.toFloat() else radiusRT,
+                if (semicircle) semicircleRadius.toFloat() else radiusRT,
+                if (semicircle) semicircleRadius.toFloat() else radiusRB,
+                if (semicircle) semicircleRadius.toFloat() else radiusRB,
+                if (semicircle) semicircleRadius.toFloat() else radiusLB,
+                if (semicircle) semicircleRadius.toFloat() else radiusLB
             ),
             Path.Direction.CW
         )
