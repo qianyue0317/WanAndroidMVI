@@ -2,6 +2,7 @@ package com.qianyue.wanandroidmvi.ext
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.annotation.ColorInt
 import com.qianyue.wanandroidmvi.utils.WanImageLoader
 
 /**
@@ -15,4 +16,11 @@ fun Context.dp2px(dp: Float) : Float{
 
 fun Context.loadImage(url: String?, iv: ImageView) {
     WanImageLoader.loadImage(this, url, iv)
+}
+
+@ColorInt fun Context.getThemeColor(attr: Int, defColor: Int = 0): Int {
+    val typedValue = obtainStyledAttributes(intArrayOf(attr))
+    val result = typedValue.getColor(0, defColor)
+    typedValue.recycle()
+    return result
 }

@@ -10,6 +10,7 @@ import com.qianyue.wanandroidmvi.R
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentMineBinding
+import com.qianyue.wanandroidmvi.ext.getThemeColor
 import com.qianyue.wanandroidmvi.ext.observeBetter
 import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedActivity
@@ -53,7 +54,7 @@ class MineFragment : BaseFragment<MineViewModel>() {
         binding.llMineContainer.background = RoundedDrawable().apply {
             radiusLT = 16f.dp2px()
             radiusRT = 16f.dp2px()
-            color = resources.getColor(R.color.white, requireActivity().theme)
+            color = requireContext().getThemeColor(androidx.appcompat.R.attr.colorPrimary)
         }
 
         initListener()
