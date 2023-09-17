@@ -35,7 +35,7 @@
         android:id="@+id/tv_empty_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="?attr/subtitleTextColor"
         android:textSize="14sp"
         tools:text="无数据" />
 

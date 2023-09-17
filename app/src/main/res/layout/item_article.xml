@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                android:textColor="@color/sub_title_color"
+                android:textColor="?attr/subtitleTextColor"
                 android:textSize="12sp" />
 
 
@@ -58,7 +58,7 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/sub_title_color"
+                android:textColor="?attr/subtitleTextColor"
                 android:textSize="12sp" />
 
 
@@ -91,7 +91,7 @@
             android:autoSizeTextType="uniform"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/sub_desc_color"
+            android:textColor="?attr/descTextColor"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_favor"

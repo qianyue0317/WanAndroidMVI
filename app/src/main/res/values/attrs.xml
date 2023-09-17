@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="wanDividerColor" format="color"/>
+
+    <attr name="titleTextColor" format="color" />
+    <attr name="subtitleTextColor" format="color"/>
+    <attr name="descTextColor" format="color" />
+
 </resources>
