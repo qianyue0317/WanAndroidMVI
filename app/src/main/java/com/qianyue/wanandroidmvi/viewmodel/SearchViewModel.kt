@@ -1,10 +1,10 @@
 package com.qianyue.wanandroidmvi.viewmodel
 
+import android.text.TextUtils
 import com.qianyue.wanandroidmvi.base.BaseViewModel
 import com.qianyue.wanandroidmvi.model.bean.ArticleItem
 import com.qianyue.wanandroidmvi.model.network.API_SERVICE
 import com.qianyue.wanandroidmvi.ui.uiintent.SearchUiIntent
-import com.qianyue.wanandroidmvi.ui.uistate.HomeUiState
 import com.qianyue.wanandroidmvi.ui.uistate.SearchUiState
 import com.tencent.mmkv.MMKV
 
@@ -37,14 +37,14 @@ class SearchViewModel : BaseViewModel<SearchUiIntent, SearchUiState>() {
                 sendUiState { SearchUiState.WordsResult(res.data) }
             }
 
-            // <editor-fold desc="搜索结果页的功能">
             is SearchUiIntent.LoadHistory -> {
                 val mmkv = MMKV.mmkvWithID(SEARCH_MMKV)
                 val resultString = mmkv.decodeString(SEARCH_MMKV, "")
-                resultString?.split(KEY_WORD_SPLIT_TAG)?.let { historyKeywordList.addAll(it) }
+                resultString?.split(KEY_WORD_SPLIT_TAG)?.filter { !TextUtils.isEmpty(it) }?.let { historyKeywordList.addAll(it) }
                 sendUiState { SearchUiState.OnLoadHistoryWord(historyKeywordList) }
             }
 
+            // <editor-fold desc="搜索结果页的功能">
             is SearchUiIntent.Refresh -> {
                 keyWord ?: return
                 _currentIndex = 0

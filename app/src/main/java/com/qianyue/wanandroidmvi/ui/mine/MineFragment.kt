@@ -52,8 +52,8 @@ class MineFragment : BaseFragment<MineViewModel>() {
         binding.ivMineAvatar.circleOutline()
 
         binding.llMineContainer.background = RoundedDrawable().apply {
-            radiusLT = 16f.dp2px()
-            radiusRT = 16f.dp2px()
+            radiusLT = 24f.dp2px()
+            radiusRT = 24f.dp2px()
             color = requireContext().getThemeColor(android.R.attr.colorBackground)
         }
 
