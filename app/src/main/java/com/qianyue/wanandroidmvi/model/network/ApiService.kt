@@ -8,6 +8,7 @@ import com.qianyue.wanandroidmvi.model.bean.ProjectCategory
 import com.qianyue.wanandroidmvi.model.bean.ProjectItem
 import com.qianyue.wanandroidmvi.model.bean.SharedData
 import com.qianyue.wanandroidmvi.model.bean.TodoItem
+import com.qianyue.wanandroidmvi.model.bean.UserCoin
 import com.qianyue.wanandroidmvi.model.bean.UserInfo
 import com.qianyue.wanandroidmvi.model.bean.WebAddressItem
 import retrofit2.http.Field
@@ -38,6 +39,11 @@ interface ApiService {
         @Field("password") pwd: String
     ): AppResponse<UserInfo>
 
+    /**
+     * 获取用户积分
+     */
+    @GET("lg/coin/userinfo/json")
+    suspend fun getCoinCount(): AppResponse<UserCoin>
 
     @FormUrlEncoded
     @POST("user/register")

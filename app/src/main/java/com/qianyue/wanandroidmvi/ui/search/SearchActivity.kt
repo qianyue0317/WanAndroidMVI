@@ -147,8 +147,8 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+    override fun onPause() {
+        super.onPause()
         vm.sendUiIntent(SearchUiIntent.SaveHistoryLocal())
     }
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.qianyue.wanandroidmvi.R
 import com.qianyue.wanandroidmvi.base.BaseFragment
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.FragmentMineBinding
@@ -15,6 +14,8 @@ import com.qianyue.wanandroidmvi.ext.observeBetter
 import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedActivity
 import com.qianyue.wanandroidmvi.ui.myshared.MySharedActivity
+import com.qianyue.wanandroidmvi.ui.uiintent.MineUiIntent
+import com.qianyue.wanandroidmvi.ui.uistate.MineUiState
 import com.qianyue.wanandroidmvi.user.User
 import com.qianyue.wanandroidmvi.viewmodel.MineViewModel
 import com.qianyue.wanandroidmvi.widgets.RoundedDrawable
@@ -37,7 +38,11 @@ class MineFragment : BaseFragment<MineViewModel>() {
     override fun lazyVM(): Lazy<MineViewModel> = viewModels()
 
     override suspend fun handleState(state: IUiState) {
-
+        when (state) {
+            is MineUiState.OnGetCoin -> {
+                binding.tvCoinCount.text = "积分：${state.coinCount}"
+            }
+        }
     }
 
     override fun onCreateView(
@@ -59,6 +64,8 @@ class MineFragment : BaseFragment<MineViewModel>() {
 
         initListener()
         initUserView()
+
+        if (User.isLoginSuccess()) vm.sendUiIntent(MineUiIntent.GetUserCoin())
 
         User.userStateData.observeBetter(this.viewLifecycleOwner) { initUserView() }
         return root

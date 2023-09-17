@@ -35,6 +35,14 @@ object User {
         }
     }
 
+    fun updateCoin(coinCount: Int) {
+        userInfo?.apply {
+            this.coinCount = coinCount
+            val mmkv = MMKV.defaultMMKV()
+            mmkv.encode(USER_KEY, GsonBuilder().create().toJson(this))
+        }
+    }
+
     fun isLoginSuccess() = userInfo != null
 
     val userName: String get() = userInfo?.nickname ?: ""

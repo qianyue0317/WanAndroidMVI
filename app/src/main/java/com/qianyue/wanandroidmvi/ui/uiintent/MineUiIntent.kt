@@ -6,5 +6,6 @@ import com.qianyue.wanandroidmvi.base.IUiIntent
  * @author QianYue
  * @since 2023/8/23
  */
-class MineUiIntent: IUiIntent {
+sealed class MineUiIntent: IUiIntent {
+    class GetUserCoin(): MineUiIntent()
 }
