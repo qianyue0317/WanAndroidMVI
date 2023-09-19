@@ -13,15 +13,12 @@
         <item name="titleTextColor">@color/black</item>
         <item name="descTextColor">#393939</item>
         <item name="subtitleTextColor">#323232</item>
+        <item name="background_color">#E2E2E2</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="wanDividerColor">#7A7A7A</item>
     </style>
-
-    <declare-styleable name="test">
-        <attr name="indexColor" format="color"/>
-    </declare-styleable>
 
     <style name="WanArticleTitle">
         <item name="android:textColor">?attr/titleTextColor</item>

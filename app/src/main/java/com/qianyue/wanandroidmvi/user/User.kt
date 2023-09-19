@@ -44,6 +44,12 @@ object User {
     }
 
     fun isLoginSuccess() = userInfo != null
+    fun logout() {
+        val defaultMMKV = MMKV.defaultMMKV()
+        defaultMMKV.remove(USER_KEY)
+        userInfo = null
+        userStateData.postValue(false)
+    }
 
     val userName: String get() = userInfo?.nickname ?: ""
 

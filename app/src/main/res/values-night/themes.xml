@@ -13,6 +13,7 @@
         <item name="titleTextColor">@color/white</item>
         <item name="subtitleTextColor">#A5A5A5</item>
         <item name="descTextColor">#9A9A9A</item>
+        <item name="background_color">#232323</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->

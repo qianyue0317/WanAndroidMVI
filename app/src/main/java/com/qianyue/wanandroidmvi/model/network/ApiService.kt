@@ -39,6 +39,9 @@ interface ApiService {
         @Field("password") pwd: String
     ): AppResponse<UserInfo>
 
+    @GET("user/logout/json")
+    suspend fun logout(): AppResponse<Any?>
+
     /**
      * 获取用户积分
      */

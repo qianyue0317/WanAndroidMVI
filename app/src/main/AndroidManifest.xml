@@ -10,9 +10,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroidMVI"
         android:usesCleartextTraffic="true"
@@ -39,6 +39,8 @@
         <activity android:name="com.qianyue.wanandroidmvi.ui.myshared.MySharedActivity" android:screenOrientation="portrait" />
         <activity android:name="com.qianyue.wanandroidmvi.ui.search.SearchActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.qianyue.wanandroidmvi.ui.search.SearchResultActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.qianyue.wanandroidmvi.ui.setting.SettingActivity"  android:screenOrientation="portrait"/>
+
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"

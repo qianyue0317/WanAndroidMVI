@@ -5,5 +5,6 @@
     <attr name="titleTextColor" format="color" />
     <attr name="subtitleTextColor" format="color"/>
     <attr name="descTextColor" format="color" />
+    <attr name="background_color" format="color"/>
 
 </resources>
