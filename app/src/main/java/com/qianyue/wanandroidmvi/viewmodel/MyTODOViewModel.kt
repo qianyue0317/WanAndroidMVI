@@ -21,6 +21,15 @@ class MyTODOViewModel: BaseViewModel<MyTODOUiIntent, MyTODOUiState>() {
                 val res = request { API_SERVICE.getTodoList(_currentIndex) }
                 sendUiState { MyTODOUiState.OnRefresh(res.data?.datas) }
             }
+
+            is MyTODOUiIntent.AddTodoItem -> {
+                val res = request { API_SERVICE.addTodoItem(uiIntent.title, uiIntent.desc, uiIntent.date) }
+                if (res.isSuccessful()) sendUiState { MyTODOUiState.OnAddSuccess() }
+            }
+
+            is MyTODOUiIntent.LoadMore -> {
+
+            }
         }
     }
 }

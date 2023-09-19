@@ -15,6 +15,7 @@ import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.mycollected.MyCollectedActivity
 import com.qianyue.wanandroidmvi.ui.myshared.MySharedActivity
 import com.qianyue.wanandroidmvi.ui.setting.SettingActivity
+import com.qianyue.wanandroidmvi.ui.todo.MyTODOListActivity
 import com.qianyue.wanandroidmvi.ui.uiintent.MineUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.MineUiState
 import com.qianyue.wanandroidmvi.user.User
@@ -91,6 +92,13 @@ class MineFragment : BaseFragment<MineViewModel>() {
         binding.llMyShareItem.setSafeClickListener {
             if (User.isLoginSuccess()) {
                 startActivity(Intent(requireContext(), MySharedActivity::class.java))
+            } else {
+                startActivity(Intent(requireContext(), LoginActivity::class.java))
+            }
+        }
+        binding.llTodoItem.setSafeClickListener {
+            if (User.isLoginSuccess()) {
+                startActivity(Intent(requireContext(), MyTODOListActivity::class.java))
             } else {
                 startActivity(Intent(requireContext(), LoginActivity::class.java))
             }

@@ -4,16 +4,18 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivitySettingBinding
+import com.qianyue.wanandroidmvi.ext.showAlertDialogSuspend
 import com.qianyue.wanandroidmvi.ui.uiintent.SettingUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.SettingUiState
 import com.qianyue.wanandroidmvi.user.User
 import com.qianyue.wanandroidmvi.viewmodel.SettingViewModel
 import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
+import kotlinx.coroutines.launch
 
 /**
  * @author QianYue
@@ -38,9 +40,13 @@ class SettingActivity : BaseActivity<SettingViewModel>() {
 
         binding.tvLogout.setSafeClickListener {
             if (User.isLoginSuccess()) {
-                AlertDialog.Builder(this).setTitle("提示").setMessage("确定要退出吗？")
-                    .setPositiveButton("确定") { _, _ -> showProgressDialog();vm.sendUiIntent(SettingUiIntent.Logout()) }
-                    .setNegativeButton("取消") { dialog, _ -> dialog.dismiss() }.create().show()
+                lifecycleScope.launch {
+                    val result = showAlertDialogSuspend("提示", "确定要退出吗？")
+                    if (result == true) {
+                        showProgressDialog()
+                        vm.sendUiIntent(SettingUiIntent.Logout())
+                    }
+                }
             }
         }
     }

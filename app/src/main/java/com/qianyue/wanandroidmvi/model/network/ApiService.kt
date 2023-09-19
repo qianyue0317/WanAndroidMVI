@@ -139,7 +139,10 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("lg/user_article/add/json")
-    suspend fun shareArticle(@Field("title") title: String, @Field("link") link: String): AppResponse<Any?>
+    suspend fun shareArticle(
+        @Field("title") title: String,
+        @Field("link") link: String
+    ): AppResponse<Any?>
 
     @POST("lg/user_article/delete/{articleId}/json")
     suspend fun deleteSharedArticle(@Path("articleId") id: Int): AppResponse<Any?>
@@ -152,5 +155,18 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("article/query/{pageIndex}/json")
-    suspend fun searchForKeyWord(@Path("pageIndex") index: Int, @Field("k") keyword: String): AppResponse<AppListData<ArticleItem>>
+    suspend fun searchForKeyWord(
+        @Path("pageIndex") index: Int,
+        @Field("k") keyword: String
+    ): AppResponse<AppListData<ArticleItem>>
+
+    @FormUrlEncoded
+    @POST("lg/todo/add/json")
+    suspend fun addTodoItem(
+        @Field("title") title: String,
+        @Field("content") desc: String,
+        @Field("date") date: String,
+        @Field("type") type: Int = 1,
+        @Field("priority ") priority: Int = 1
+    ): AppResponse<Any?>
 }

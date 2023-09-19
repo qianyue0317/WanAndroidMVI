@@ -40,6 +40,7 @@
         <activity android:name="com.qianyue.wanandroidmvi.ui.search.SearchActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.qianyue.wanandroidmvi.ui.search.SearchResultActivity" android:screenOrientation="portrait" />
         <activity android:name="com.qianyue.wanandroidmvi.ui.setting.SettingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.qianyue.wanandroidmvi.ui.todo.MyTODOListActivity" android:screenOrientation="portrait" />
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
