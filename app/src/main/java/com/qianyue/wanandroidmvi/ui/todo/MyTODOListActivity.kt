@@ -31,7 +31,6 @@ import com.qianyue.wanandroidmvi.widgets.circleOutline
 import com.qianyue.wanandroidmvi.widgets.classicConfig
 import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 import kotlin.math.max
 
 /**
