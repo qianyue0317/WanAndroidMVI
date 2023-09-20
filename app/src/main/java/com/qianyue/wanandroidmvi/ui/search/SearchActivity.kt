@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -21,12 +22,14 @@ import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivitySearchBinding
 import com.qianyue.wanandroidmvi.databinding.ItemHistoryKeywordBinding
+import com.qianyue.wanandroidmvi.ext.showAlertDialogSuspend
 import com.qianyue.wanandroidmvi.ui.uiintent.SearchUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.SearchUiState
 import com.qianyue.wanandroidmvi.viewmodel.SearchViewModel
 import com.qianyue.wanandroidmvi.widgets.RoundedDrawable
 import com.qianyue.wanandroidmvi.widgets.dp2px
 import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
+import kotlinx.coroutines.launch
 
 /**
  * 搜索页面
@@ -70,15 +73,10 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
         }
 
         binding.tvClearHistory.setSafeClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("确定要清空搜索记录吗")
-                .setPositiveButton(
-                    "确定"
-                ) { _, _ -> vm.sendUiIntent(SearchUiIntent.ClearHistory()) }
-                .setNegativeButton(
-                    "取消"
-                ) { dialog, _ -> dialog?.dismiss() }
-                .create().show()
+            lifecycleScope.launch {
+                val result = showAlertDialogSuspend("确定要清空搜索记录吗？", "")
+                if (result == true) vm.sendUiIntent(SearchUiIntent.ClearHistory())
+            }
         }
     }
 

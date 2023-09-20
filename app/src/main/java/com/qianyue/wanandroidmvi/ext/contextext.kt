@@ -1,12 +1,14 @@
 package com.qianyue.wanandroidmvi.ext
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
+import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.utils.WanImageLoader
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
@@ -55,13 +57,15 @@ suspend fun AppCompatActivity.showAlertDialogSuspend(
     title: String,
     message: String,
     negative: String = "取消",
-    positive: String = "确定"
+    positive: String = "确定",
+    canceledOnTouchOutside: Boolean = true
 ): Boolean? {
     val channel = Channel<Boolean?>()
 
     val dialog = AlertDialog.Builder(this).apply {
         setTitle(title)
         setMessage(message)
+        setCancelable(canceledOnTouchOutside)
 
         setNegativeButton(negative) { dialog, _ ->
             lifecycle.coroutineScope.launch {
@@ -90,4 +94,16 @@ suspend fun AppCompatActivity.showAlertDialogSuspend(
     val result = channel.receive()
     channel.close()
     return result
+}
+
+fun BaseActivity<*>.showProgress(title: String = "提示", tip: String = "请稍候...", canceledOnTouchOutside: Boolean = true) {
+    progressDialog?.dismiss()
+    progressDialog = ProgressDialog.show(this, title, tip).apply {
+        setCanceledOnTouchOutside(canceledOnTouchOutside)
+    }
+}
+
+fun BaseActivity<*>.dismissProgress() {
+    progressDialog?.dismiss()
+    progressDialog = null
 }

@@ -1,10 +1,12 @@
 package com.qianyue.wanandroidmvi.base
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
+import com.qianyue.wanandroidmvi.ext.dismissProgress
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.launch
 
@@ -15,6 +17,8 @@ import kotlinx.coroutines.launch
 abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
 
     val vm: VM by lazyVM()
+
+    var progressDialog: Dialog? = null
 
     abstract fun lazyVM(): Lazy<VM>
 
@@ -30,5 +34,10 @@ abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
     }
 
     abstract suspend fun handleState(state: IUiState)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissProgress()
+    }
 
 }

@@ -76,39 +76,44 @@ class MyTODOListActivity : BaseActivity<MyTODOViewModel>() {
             }
 
             R.id.menu_plus -> {
-                BottomSheetDialog(this, R.style.WanBottomSheetDialog).apply {
-                    setContentView(R.layout.bottom_sheet_add_todo)
 
-                    val inputTitle = findViewById<TextInputLayout>(R.id.til_title)!!
-                    val inputDesc = findViewById<TextInputLayout>(R.id.til_desc)!!
-
-                    val tvDate = findViewById<TextView>(R.id.tv_date_pick)!!
-                    tvDate.setSafeClickListener {
-                        DatePickerDialog(this@MyTODOListActivity).apply {
-                            setOnDateSetListener { _, year, month, dayOfMonth ->
-                                tvDate.text = "$year-${month + 1}-$dayOfMonth"
-                            }
-                        }
-                            .show()
-                    }
-
-                    findViewById<TextView>(R.id.tv_confirm)!!.setSafeClickListener {
-                        if (validInput(inputTitle, inputDesc)) {
-                            vm.sendUiIntent(
-                                MyTODOUiIntent.AddTodoItem(
-                                    inputTitle.editText!!.text.toString().trim(),
-                                    inputDesc.editText!!.text.toString().trim(),
-                                    tvDate.text.toString().trim()
-                                )
-                            )
-                        }
-                    }
-                    show()
-                }
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun showBottomDialog() {
+        BottomSheetDialog(this, R.style.WanBottomSheetDialog).apply {
+            setContentView(R.layout.bottom_sheet_add_todo)
+
+            val inputTitle = findViewById<TextInputLayout>(R.id.til_title)!!
+            val inputDesc = findViewById<TextInputLayout>(R.id.til_desc)!!
+
+            val tvDate = findViewById<TextView>(R.id.tv_date_pick)!!
+            tvDate.setSafeClickListener {
+                DatePickerDialog(this@MyTODOListActivity).apply {
+                    setOnDateSetListener { _, year, month, dayOfMonth ->
+                        tvDate.text = "$year-${month + 1}-$dayOfMonth"
+                    }
+                }
+                    .show()
+            }
+
+            findViewById<TextView>(R.id.tv_confirm)!!.setSafeClickListener {
+                if (validInput(inputTitle, inputDesc)) {
+                    vm.sendUiIntent(
+                        MyTODOUiIntent.AddTodoItem(
+                            inputTitle.editText!!.text.toString().trim(),
+                            inputDesc.editText!!.text.toString().trim(),
+                            tvDate.text.toString().trim()
+                        )
+                    )
+                }
+            }
+            show()
+        }
+    }
+
 
     private fun validInput(inputTitle: TextInputLayout, inputDesc: TextInputLayout): Boolean {
         if (TextUtils.isEmpty(inputTitle.editText!!.text.toString().trim())) {

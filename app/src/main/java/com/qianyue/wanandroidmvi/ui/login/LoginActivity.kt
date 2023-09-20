@@ -1,17 +1,16 @@
 package com.qianyue.wanandroidmvi.ui.login
 
-import android.app.Dialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivityLoginBinding
+import com.qianyue.wanandroidmvi.ext.dismissProgress
+import com.qianyue.wanandroidmvi.ext.showProgress
 import com.qianyue.wanandroidmvi.ui.uiintent.LoginUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.LoginUiState
 import com.qianyue.wanandroidmvi.viewmodel.LoginViewModel
@@ -27,9 +26,6 @@ class LoginActivity: BaseActivity<LoginViewModel>() {
     private val binding get() = _binding!!
 
     override fun lazyVM(): Lazy<LoginViewModel> = viewModels()
-
-    private var _progressDialog: Dialog? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,12 +79,10 @@ class LoginActivity: BaseActivity<LoginViewModel>() {
                 binding.btnLoginRegister.text = if (isLogin) "登录" else "注册"
             }
             is LoginUiState.ShowLoading -> {
-                _progressDialog = AlertDialog.Builder(this)
-                    .setView(ProgressBar(this))
-                    .create().apply { show() }
+                showProgress()
             }
             is LoginUiState.LoginResult -> {
-                _progressDialog?.hide()
+                dismissProgress()
                 if (!state.success) {
                     Toaster.showShort("登录失败 -- ${state.msg}")
                 } else finish()
@@ -99,7 +93,5 @@ class LoginActivity: BaseActivity<LoginViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        _progressDialog?.dismiss()
-        _progressDialog = null
     }
 }

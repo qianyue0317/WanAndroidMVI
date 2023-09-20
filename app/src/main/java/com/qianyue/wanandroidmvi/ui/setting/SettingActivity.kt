@@ -9,7 +9,9 @@ import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ActivitySettingBinding
+import com.qianyue.wanandroidmvi.ext.dismissProgress
 import com.qianyue.wanandroidmvi.ext.showAlertDialogSuspend
+import com.qianyue.wanandroidmvi.ext.showProgress
 import com.qianyue.wanandroidmvi.ui.uiintent.SettingUiIntent
 import com.qianyue.wanandroidmvi.ui.uistate.SettingUiState
 import com.qianyue.wanandroidmvi.user.User
@@ -34,6 +36,7 @@ class SettingActivity : BaseActivity<SettingViewModel>() {
         super.onCreate(savedInstanceState)
         _binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showProgress()
 
         supportActionBar?.title = "设置"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -43,21 +46,12 @@ class SettingActivity : BaseActivity<SettingViewModel>() {
                 lifecycleScope.launch {
                     val result = showAlertDialogSuspend("提示", "确定要退出吗？")
                     if (result == true) {
-                        showProgressDialog()
+                        showProgress()
                         vm.sendUiIntent(SettingUiIntent.Logout())
                     }
                 }
             }
         }
-    }
-
-    private fun showProgressDialog() {
-        _progressDialog = ProgressDialog.show(this, "正在请求...", "")
-    }
-
-    private fun dismissProgressDialog() {
-        _progressDialog?.dismiss()
-        _progressDialog = null
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -71,7 +65,7 @@ class SettingActivity : BaseActivity<SettingViewModel>() {
     override suspend fun handleState(state: IUiState) {
         when (state) {
             is SettingUiState.OnLogout -> {
-                dismissProgressDialog()
+                dismissProgress()
                 Toaster.showShort("已退出登录")
             }
         }
