@@ -31,6 +31,8 @@ import com.qianyue.wanandroidmvi.widgets.circleOutline
 import com.qianyue.wanandroidmvi.widgets.classicConfig
 import com.qianyue.wanandroidmvi.widgets.setSafeClickListener
 import kotlinx.coroutines.launch
+import kotlin.math.abs
+import kotlin.math.max
 
 /**
  * @author QianYue
@@ -129,10 +131,10 @@ class MyTODOListActivity : BaseActivity<MyTODOViewModel>() {
 
             val tvDate = findViewById<TextView>(R.id.tv_date_pick)!!.apply { text = resultDate ?: text }
             val tvLevel = findViewById<TextView>(R.id.tv_level)!!.apply {
-                text = resultLevel?.toString() ?: text
+                text = resultLevel?.let { MyTODOViewModel.PRIORITY[max(0, it - 1)] } ?: text
             }
             val tvType = findViewById<TextView>(R.id.tv_type)!!.apply {
-                text = resultType?.toString() ?: text
+                text = resultType?.let { MyTODOViewModel.TYPE_LIST[max(0, it - 1)] } ?: text
             }
 
             tvDate.circleOutline()

@@ -177,12 +177,12 @@ interface ApiService {
     @POST("lg/todo/update/{todoId}/json")
     suspend fun updateTodo(
         @Path("todoId") id: Int,
-        title: String,
-        content: String,
-        date: String,
-        status: Int,
-        type: Int,
-        level: Int
+        @Field("title") title: String,
+        @Field("content") content: String,
+        @Field("date") date: String,
+        @Field("status") status: Int,
+        @Field("type") type: Int,
+        @Field("priority") level: Int
     ): AppResponse<Any?>
 
     @FormUrlEncoded

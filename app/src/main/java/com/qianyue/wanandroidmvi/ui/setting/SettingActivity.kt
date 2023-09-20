@@ -36,7 +36,6 @@ class SettingActivity : BaseActivity<SettingViewModel>() {
         super.onCreate(savedInstanceState)
         _binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showProgress()
 
         supportActionBar?.title = "设置"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
