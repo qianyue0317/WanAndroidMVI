@@ -47,7 +47,6 @@ fun View.circleOutline() {
     outlineProvider = object : ViewOutlineProvider() {
         override fun getOutline(view: View?, outline: Outline?) {
             view?.let {
-                if (it.height != it.width) throw RuntimeException("require with equals height")
                 outline?.setRoundRect(0, 0, it.width, it.height, it.width / 2f)
             }
         }

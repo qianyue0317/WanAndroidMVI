@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="待办标题"
-            android:includeFontPadding="false"
-            android:inputType="text" />
+            android:includeFontPadding="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -58,35 +57,76 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="待办详情"
-            android:includeFontPadding="false"
-            android:inputType="text" />
+            android:includeFontPadding="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView
         android:id="@+id/tv_date_pick"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="@dimen/layout_margin"
-        android:textSize="16sp"
-        android:text="日期选择"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        android:text="日期选择"
+        android:textSize="16sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/tv_level"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="#58D3EC"
         app:layout_constraintTop_toBottomOf="@+id/til_desc" />
+
+
+    <TextView
+        android:id="@+id/tv_level"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="优 先 级"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:background="#47BD94"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/tv_type"
+        app:layout_constraintStart_toEndOf="@+id/tv_date_pick"
+        app:layout_constraintTop_toBottomOf="@+id/til_desc" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="类  别"
+        android:gravity="center"
+        android:background="#E676CB"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_level"
+        app:layout_constraintTop_toBottomOf="@+id/til_desc" />
+
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tv_level,tv_type,tv_date_pick" />
 
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardElevation="8dp"
         android:layout_marginTop="@dimen/layout_margin"
+        app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date_pick">
+        app:layout_constraintTop_toBottomOf="@+id/barrier_confirm">
 
         <TextView
             android:id="@+id/tv_confirm"

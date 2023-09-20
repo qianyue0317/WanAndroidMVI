@@ -165,8 +165,30 @@ interface ApiService {
     suspend fun addTodoItem(
         @Field("title") title: String,
         @Field("content") desc: String,
-        @Field("date") date: String,
+        @Field("date") date: String?,
         @Field("type") type: Int = 1,
-        @Field("priority ") priority: Int = 1
+        @Field("priority") priority: Int = 1
+    ): AppResponse<Any?>
+
+    @POST("lg/todo/delete/{todoId}/json")
+    suspend fun deleteTodo(@Path("todoId") id: Int): AppResponse<Any?>
+
+    @FormUrlEncoded
+    @POST("lg/todo/update/{todoId}/json")
+    suspend fun updateTodo(
+        @Path("todoId") id: Int,
+        title: String,
+        content: String,
+        date: String,
+        status: Int,
+        type: Int,
+        level: Int
+    ): AppResponse<Any?>
+
+    @FormUrlEncoded
+    @POST("lg/todo/done/{todoId}/json")
+    suspend fun updateStatus(
+        @Path("todoId") id: Int,
+        @Field("status") status: Int/* 0或1,1代表完成，0未完成 */
     ): AppResponse<Any?>
 }

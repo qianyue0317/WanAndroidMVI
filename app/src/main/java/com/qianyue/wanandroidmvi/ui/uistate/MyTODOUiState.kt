@@ -10,5 +10,8 @@ import com.qianyue.wanandroidmvi.model.bean.TodoItem
 sealed class MyTODOUiState: IUiState {
     class Init : MyTODOUiState()
     class OnRefresh(val list: List<TodoItem>?) : MyTODOUiState()
-    class OnAddSuccess : MyTODOUiState()
+    class OnAddResult(val successful: Boolean, val msg: String? = null) : MyTODOUiState()
+    class OnDeleteResult(val successful: Boolean, val msg: String? = null) : MyTODOUiState()
+    class OnUpdateResult(val successful: Boolean, val errorMsg: String) : MyTODOUiState()
+    class OnLoadMore(val list: List<TodoItem>?) : MyTODOUiState()
 }

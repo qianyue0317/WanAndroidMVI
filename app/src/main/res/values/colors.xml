@@ -8,6 +8,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="divider_line_color">#E4E4E4</color>
     <color name="sub_title_color">#252525</color>
     <color name="sub_desc_color">#555555</color>
     <color name="tag_bg_color">#B5B5B5</color>
