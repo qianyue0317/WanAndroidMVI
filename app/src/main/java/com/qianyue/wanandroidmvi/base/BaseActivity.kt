@@ -2,6 +2,7 @@ package com.qianyue.wanandroidmvi.base
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
@@ -31,6 +32,14 @@ abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     abstract suspend fun handleState(state: IUiState)

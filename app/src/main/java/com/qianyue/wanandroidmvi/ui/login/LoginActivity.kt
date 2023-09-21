@@ -62,13 +62,6 @@ class LoginActivity: BaseActivity<LoginViewModel>() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-        }
-        return true
-    }
-
     override suspend fun handleState(state: IUiState) {
         when (state) {
             is LoginUiState.InitState, is LoginUiState.ModeChangeState -> {

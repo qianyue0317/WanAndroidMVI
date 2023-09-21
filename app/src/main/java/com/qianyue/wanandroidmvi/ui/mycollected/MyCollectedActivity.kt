@@ -53,14 +53,6 @@ class MyCollectedActivity: BaseActivity<MyCollectedViewModel>() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override suspend fun handleState(state: IUiState) {
     }
 

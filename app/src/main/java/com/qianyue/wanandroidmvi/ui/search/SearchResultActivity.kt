@@ -9,6 +9,7 @@ import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseActivity
 import com.qianyue.wanandroidmvi.base.IUiState
 import com.qianyue.wanandroidmvi.databinding.ListDataLayoutBinding
+import com.qianyue.wanandroidmvi.ui.detailwebpage.DetailWebPageActivity
 import com.qianyue.wanandroidmvi.ui.home.ArticleAdapter
 import com.qianyue.wanandroidmvi.ui.login.LoginActivity
 import com.qianyue.wanandroidmvi.ui.safeAddAll
@@ -81,6 +82,9 @@ class SearchResultActivity : BaseActivity<SearchViewModel>() {
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
+        }
+        adapter.onItemClick = {
+            DetailWebPageActivity.startActivity(this, it.link, it.title)
         }
     }
 
