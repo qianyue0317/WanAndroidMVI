@@ -41,8 +41,8 @@ suspend fun <T> AppCompatActivity.showDialogSuspend(
 
     val dialog = factory(channel)
     dialog.setOnDismissListener {
-        runCatching {
-            lifecycle.coroutineScope.launch {
+        lifecycle.coroutineScope.launch {
+            runCatching {
                 channel.send(null)
             }
         }
@@ -96,7 +96,11 @@ suspend fun AppCompatActivity.showAlertDialogSuspend(
     return result
 }
 
-fun BaseActivity<*>.showProgress(title: String = "提示", tip: String = "请稍候...", canceledOnTouchOutside: Boolean = true) {
+fun BaseActivity<*>.showProgress(
+    title: String = "提示",
+    tip: String = "请稍候...",
+    canceledOnTouchOutside: Boolean = true
+) {
     progressDialog?.dismiss()
     progressDialog = ProgressDialog.show(this, title, tip).apply {
         setCanceledOnTouchOutside(canceledOnTouchOutside)

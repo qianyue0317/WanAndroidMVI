@@ -30,8 +30,6 @@ class SettingActivity : BaseActivity<SettingViewModel>() {
 
     override fun lazyVM(): Lazy<SettingViewModel> = viewModels()
 
-    private var _progressDialog: ProgressDialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivitySettingBinding.inflate(layoutInflater)
