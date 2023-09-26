@@ -54,7 +54,7 @@ interface ApiService {
         @Field("username") userName: String,
         @Field("password") pwd: String,
         @Field("repassword") rpwd: String
-    ): AppResponse<Any>
+    ): AppResponse<UserInfo>
 
 
     /**
