@@ -77,7 +77,7 @@ class LoginActivity: BaseActivity<LoginViewModel>() {
             is LoginUiState.LoginResult -> {
                 dismissProgress()
                 if (!state.success) {
-                    Toaster.showShort("登录失败 -- ${state.msg}")
+                    Toaster.showShort("${if (vm.isLogin) "登录" else "注册"}失败 -- ${state.msg}")
                 } else finish()
             }
         }
