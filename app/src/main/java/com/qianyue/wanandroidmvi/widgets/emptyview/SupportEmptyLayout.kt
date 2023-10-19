@@ -85,7 +85,7 @@ class SupportEmptyLayout @JvmOverloads constructor(
         }
     }
 
-    fun showProgressBar(tip: String = "正在加载") {
+    fun showProgressBar(tip: String = "正在加载...") {
         emptyView.visibility = View.VISIBLE
         emptyView.bringToFront()
         ivEmptyRefresh.visibility = View.GONE
