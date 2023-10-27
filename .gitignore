@@ -22,3 +22,4 @@ local.properties
 /.idea/aws.xml
 /.idea/WORKSP~2.XML
 /app/src/main/java/com/qianyue/wanandroidmvi/TestAttri.kt
+/app/build
