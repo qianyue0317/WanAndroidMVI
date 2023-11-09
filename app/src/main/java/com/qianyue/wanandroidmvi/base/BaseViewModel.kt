@@ -6,6 +6,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -24,7 +25,7 @@ abstract class BaseViewModel<UiIntent: IUiIntent, UiState: IUiState> : ViewModel
 
     private val _uiStateFlow = MutableStateFlow(initState())
 
-    val uiStateFlow: StateFlow<UiState> = _uiStateFlow
+    val uiStateFlow: StateFlow<UiState> = _uiStateFlow.asStateFlow()
 
     /**
      * view层调用此方法，传入意图
@@ -68,5 +69,8 @@ abstract class BaseViewModel<UiIntent: IUiIntent, UiState: IUiState> : ViewModel
         _uiStateFlow.update {
             block(it)
         }
+    }
+
+    fun onDestroy() {
     }
 }

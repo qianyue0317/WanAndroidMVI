@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import com.qianyue.wanandroidmvi.ext.dismissProgress
+import com.qianyue.wanandroidmvi.utils.WanLog
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,7 @@ abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm.viewModelScope.launch {
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 vm.uiStateFlow.collectIndexed { _, value ->
                     handleState(value)
@@ -47,6 +48,7 @@ abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         dismissProgress()
+        vm.onDestroy()
     }
 
 }
