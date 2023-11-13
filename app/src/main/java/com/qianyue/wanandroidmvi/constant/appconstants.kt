@@ -11,6 +11,9 @@ object NetworkConstant {
     const val SUCCESS = 0
     const val EXCEPTION = -12345
 
+    // 登录过期
+    const val TOKEN_INVALIDATE = -1001
+
     const val UNKNOWN_ERROR = "unknown_error"
 }
 
