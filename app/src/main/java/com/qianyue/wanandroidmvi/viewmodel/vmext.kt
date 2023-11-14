@@ -1,8 +1,10 @@
 package com.qianyue.wanandroidmvi.viewmodel
 
+import com.hjq.toast.Toaster
 import com.qianyue.wanandroidmvi.base.BaseViewModel
 import com.qianyue.wanandroidmvi.constant.NetworkConstant
 import com.qianyue.wanandroidmvi.model.network.AppResponse
+import com.qianyue.wanandroidmvi.user.User
 
 /**
  * @author QianYue
@@ -34,6 +36,12 @@ suspend fun <T : BaseViewModel<*, *>, R> T.request(
     }.onFailure {
         requestStateListener?.invoke(RequestState.AfterRequest)
     }
+
+    if (result.getOrNull()?.errorCode == NetworkConstant.TOKEN_INVALIDATE) {
+        User.logout()
+        Toaster.show("登录已过期！")
+    }
+
     if (result.isSuccess) {
         return result.getOrNull()!!
     }
