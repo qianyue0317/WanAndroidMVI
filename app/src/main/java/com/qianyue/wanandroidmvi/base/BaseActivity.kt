@@ -26,6 +26,7 @@ abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WanLog.d(msg = "${javaClass.simpleName}--onCreate")
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 vm.uiStateFlow.collectIndexed { _, value ->
@@ -47,6 +48,7 @@ abstract class BaseActivity<VM : BaseViewModel<*, *>> : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        WanLog.d(msg = "${javaClass.simpleName}--onDestroy")
         dismissProgress()
         vm.onDestroy()
     }
